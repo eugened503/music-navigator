@@ -1,0 +1,58 @@
+import { computed, watch } from "vue";
+import { useStorePagination } from "../stores/storePagination";
+
+export default function useUserPagination(currentItems, pageName) {
+  const store = useStorePagination();
+  const page = computed(() => store.$state.page[pageName]);
+  const perPage = computed(() => store.$state.perPage[pageName]);
+  const pages = computed(() => store.$state.pages[pageName]);
+
+  const paginate = (items) => {
+    let pageValue = page.value;
+    let perPageValue = perPage.value;
+    let from = pageValue * perPageValue - perPageValue;
+    let to = pageValue * perPageValue;
+    return items?.slice(from, to);
+  };
+
+  const displayedItems = computed(() => paginate(currentItems.value));
+
+  const setPages = () => {
+    store.resetPage(pageName);
+    store.clearPages(pageName);
+    let numberOfPages = Math.ceil(currentItems.value?.length / perPage.value);
+    for (let index = 1; index <= numberOfPages; index++) {
+      store.addPages(pageName, index);
+    }
+  };
+
+  
+  const getPageNumber = (pageNumber) => {
+    store.getPageNumber(pageNumber, pageName);
+  };
+
+  const getNextPage = () => {
+    store.getNextPage(pageName);
+  };
+
+  const getPrevPage = () => {
+    store.getPrevPage(pageName);
+  };
+
+  watch(
+    () => currentItems.value,
+    () => {
+      setPages();
+    }
+  );
+  
+  return {
+    displayedItems,
+    pages,
+    page,
+    getPageNumber,
+    getNextPage,
+    getPrevPage,
+    setPages,
+  };
+}
