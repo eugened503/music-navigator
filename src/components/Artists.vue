@@ -29,7 +29,7 @@
   </section>
 </template>
 <script setup>
-import { computed, onMounted, watch } from "vue";
+import { computed, onMounted } from "vue";
 import SearchForm from "../components/SearchForm.vue";
 import Artist from "../components/Artist.vue";
 import { useStoreAPI } from "../stores/storeAPI";

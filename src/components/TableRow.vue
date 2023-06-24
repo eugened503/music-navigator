@@ -27,16 +27,13 @@
     <div class="table-row__cell listeners">
       <p>{{ listeners }}</p>
     </div>
-
   </a>
 </template>
 <script setup>
-import { computed } from "vue";
+import { computed, ref, watch, onMounted, onBeforeMount } from "vue";
 import { getImage } from "../utils/getImage.js";
 import { useStoreMusic } from "../stores/storeMusic";
 import useUserContent from "../composables/useUserContent";
-import { useStoreAPI } from "../stores/storeAPI";
-import { storeToRefs } from "pinia";
 
 const props = defineProps({
   artist: String,
@@ -47,16 +44,14 @@ const props = defineProps({
 });
 
 const isImage = computed(() => getImage(props.image));
-const { addTracks, deleteTracks, getUserMusic } = useStoreMusic();
+const { addTracks, deleteTracks } = useStoreMusic();
+
 const { lovedItems, handleItems } = useUserContent(
   "tracks",
   addTracks,
   deleteTracks,
-  getUserMusic
 );
 
-const { getTracksInfo } = storeToRefs(useStoreAPI());
-const tracksInfo = computed(() => getTracksInfo);
 </script>
 
 <style lang="scss" scoped>
@@ -145,3 +140,4 @@ const tracksInfo = computed(() => getTracksInfo);
   }
 }
 </style>
+../composables/useUserContent.js

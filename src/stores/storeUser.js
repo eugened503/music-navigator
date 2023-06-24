@@ -7,6 +7,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { useStoreMusic } from "../stores/storeMusic";
+import { useStoreAPI } from "../stores/storeAPI";
+import { useStorePagination } from "../stores/storePagination";
 
 export const useStoreUser = defineStore("storeUser", {
   state: () => {
@@ -91,8 +93,15 @@ export const useStoreUser = defineStore("storeUser", {
     async logout() {
       await signOut(auth);
       this.user = null;
+      this.uid = null;
       this.accessToken = null;
       localStorage.removeItem("accessToken");
+      const { clearStore } = useStoreMusic();
+      const { resetData } = useStoreAPI();
+      const { resetStore } = useStorePagination();
+      clearStore();
+      resetData();
+      resetStore();
       router.push("/login");
     },
 

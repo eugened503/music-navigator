@@ -8,24 +8,23 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, computed } from "vue";
+import { onBeforeMount, onMounted, computed, watch } from "vue";
 import { useStoreMusic } from "./stores/storeMusic";
 import { useStoreUser } from "./stores/storeUser";
 
 const { logout, fetchUser, $state } = useStoreUser();
-
-const { getMusic } = useStoreMusic();
+const { getMusic, getElementId } = useStoreMusic();
 
 onBeforeMount(() => {
   fetchUser();
-  //sessionStorage.clear();
 });
 
-onMounted(() => {
-  getMusic();
-});
-
+const uid = computed(() => $state.uid);
 const accessToken = computed(() => $state.accessToken);
+
+watch(uid, getElementId);
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -72,6 +72,20 @@ export const useStoreAPI = defineStore("storeAPI", {
       this.currentRequest = currentRequest;
     },
 
+    resetData() {
+      this.tracks = [];
+      this.albums = [];
+      this.artists = [];
+      this.error = null;
+      this.trackLoaded = false;
+      this.albumLoaded = false;
+      this.artistLoaded = false;
+      this.currentRequest = null;
+      this.trackRequest = null;
+      this.albumRequest = null;
+      this.artistRequest = null;
+    },
+
     getRes(method, searchName) {
       return axios.get(
         baseUrl +
@@ -102,5 +116,11 @@ export const useStoreAPI = defineStore("storeAPI", {
   },
   persist: {
     enabled: true,
+    strategies: [
+      {
+        key: "storeAPI",
+        storage: localStorage,
+      },
+    ],
   },
 });

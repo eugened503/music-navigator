@@ -44,8 +44,32 @@ export const useStorePagination = defineStore("storePagination", {
     resetPage(pageName) {
       this.page[pageName] = 1;
     },
+
+    resetStore() {
+      this.page = {
+        tracks: 1,
+        albums: 1,
+        artists: 1,
+      };
+      this.perPage = {
+        tracks: 4,
+        albums: 4,
+        artists: 4,
+      };
+      this.pages = {
+        tracks: [],
+        albums: [],
+        artists: [],
+      };
+    },
   },
   persist: {
     enabled: true,
+    strategies: [
+      {
+        key: "pagination",
+        storage: localStorage,
+      },
+    ],
   },
 });

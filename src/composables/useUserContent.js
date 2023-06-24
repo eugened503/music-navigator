@@ -1,20 +1,20 @@
-import { computed } from "vue";
-import { useStoreUser } from "../stores/storeUser";
+import { computed, watch, ref } from "vue";
+import { useStoreMusic } from "../stores/storeMusic";
+import { storeToRefs } from "pinia";
 
-export default function useUserContent(currentName, addItems, deleteItems, getUserMusic) {
-  const store = useStoreUser();
-  const uid = computed(() => store.$state.uid);
-  const userMusic = computed(() => getUserMusic(uid.value));
-  const id = computed(() => userMusic.value.id);
-  const items = computed(() => userMusic.value?.music[currentName]);
+export default function useUserContent(currentName, addItems, deleteItems) {
+  const { getMusic, getUid } = storeToRefs(useStoreMusic());
+  const music = computed(() => getMusic.value);
+  const uid = computed(() => getUid.value);
+  const items = computed(() => music.value[currentName]);
 
   const handleItems = (obj) => {
     const loaded = lovedItems(obj.name, obj.artist || null);
     if (loaded) {
       const idItem = handleIdItem(obj.name);
-      deleteItems(idItem, id.value);
+      deleteItems(idItem, uid.value);
     } else {
-      addItems(obj, id.value);
+      addItems(obj, uid.value);
     }
   };
 

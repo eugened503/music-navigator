@@ -31,9 +31,9 @@ const props = defineProps({
   listeners: String,
 });
 const isImage = computed(() => getImage(props.image));
-const { addArtists, deleteArtists, getUserMusic } = useStoreMusic();
+const { addArtists, deleteArtists } = useStoreMusic();
 const { lovedItems, handleItems } =
-useUserContent("artists", addArtists, deleteArtists, getUserMusic);
+useUserContent("artists", addArtists, deleteArtists);
 </script>
 
 <style lang="scss" scoped>
@@ -77,3 +77,4 @@ useUserContent("artists", addArtists, deleteArtists, getUserMusic);
   }
 }
 </style>
+../composables/useUserContentOld.js

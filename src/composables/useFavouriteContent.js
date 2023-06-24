@@ -1,14 +1,12 @@
 import { computed } from "vue";
-import { useStoreUser } from "../stores/storeUser";
 import { useStoreMusic } from "../stores/storeMusic";
+import { storeToRefs } from "pinia";
 
 export default function useFavouriteContent(name) {
-  const { $state } = useStoreUser();
-  const { getUserMusic } = useStoreMusic();
+  const { getMusic } = storeToRefs(useStoreMusic());
 
-  const uid = computed(() => $state.uid);
-  const favouriteMusic = computed(() => getUserMusic(uid.value));
-  const favouriteItems = computed(() => favouriteMusic.value?.music[name]);
+  const music = computed(() => getMusic.value);
+  const favouriteItems = computed(() => music.value[name]);
 
   return { favouriteItems };
 }

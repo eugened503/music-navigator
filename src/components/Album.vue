@@ -34,12 +34,11 @@ const props = defineProps({
 });
 
 const isImage = computed(() => getImage(props.image));
-const { addAlbums, deleteAlbums, getUserMusic } = useStoreMusic();
+const { addAlbums, deleteAlbums} = useStoreMusic();
 const { lovedItems, handleItems } = useUserContent(
   "albums",
   addAlbums,
   deleteAlbums,
-  getUserMusic
 );
 </script>
 
@@ -80,3 +79,4 @@ const { lovedItems, handleItems } = useUserContent(
   }
 }
 </style>
+../composables/useUserContentOld.js

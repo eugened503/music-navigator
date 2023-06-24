@@ -2,9 +2,11 @@ import _ from "lodash";
 import { defineStore } from "pinia";
 import {
   getDocs,
+  getDoc,
   collection,
   onSnapshot,
   addDoc,
+  setDoc,
   deleteDoc,
   updateDoc,
   doc,
@@ -12,7 +14,7 @@ import {
   orderBy,
   arrayUnion,
 } from "firebase/firestore";
-
+import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,30 +24,42 @@ const musicCollectionQuery = query(musicCollectionRef, orderBy("date", "desc"));
 export const useStoreMusic = defineStore("storeMusic", {
   state: () => {
     return {
-      usersCollectionMusic: [],
+      //usersCollectionMusic: [],
       musicLoaded: false,
+      //collectionMusicId: {},
+      music: {},
+      uid: null,
+      //musicId: null,
     };
   },
   actions: {
-    async getMusic() {
-      this.musicLoaded = false;
-      onSnapshot(musicCollectionQuery, (querySnapshot) => {
-        const usersCollectionMusic = [];
-        querySnapshot.forEach((doc) => {
-          const musicItem = {
-            id: doc.id,
-            uid: doc.data().uid,
-            music: doc.data().music,
-          };
-          usersCollectionMusic.push(musicItem);
-        });
-        this.usersCollectionMusic = usersCollectionMusic;
-        this.musicLoaded = true;
-      });
-    },
+    // async getMusic() {
+    //   this.musicLoaded = false;
+    //   onSnapshot(musicCollectionQuery, (querySnapshot) => {
+    //     const usersCollectionMusic = [];
+    //     querySnapshot.forEach((doc) => {
+    //       const musicItem = {
+    //         id: doc.id,
+    //         uid: doc.data().uid,
+    //         music: doc.data().music,
+    //       };
+    //       usersCollectionMusic.push(musicItem);
+    //     });
+    //     this.usersCollectionMusic = usersCollectionMusic;
+    //     this.musicLoaded = true;
+    //   });
+    // },
 
     async addCollection(userUid) {
-      await addDoc(musicCollectionRef, {
+      // const newMusicAdded = await addDoc(musicCollectionRef, {
+      //   date: Date.now(),
+      //   uid: userUid,
+      //   music: { tracks: [], albums: [], artists: [] },
+      // });
+
+      //this.musicId = newMusicAdded.id;
+      //localStorage.setItem("musicId", newMusicAdded.id);
+      await setDoc(doc(musicCollectionRef, userUid), {
         date: Date.now(),
         uid: userUid,
         music: { tracks: [], albums: [], artists: [] },
@@ -79,9 +93,7 @@ export const useStoreMusic = defineStore("storeMusic", {
     async addItems(obj, id, name) {
       obj.id = uuidv4();
 
-      const clone = _.cloneDeep(this.usersCollectionMusic);
-      const { music } = clone.find((item) => item.id === id);
-
+      const music = _.cloneDeep(this.music);
       music[name].push(obj);
 
       await updateDoc(doc(musicCollectionRef, id), {
@@ -90,24 +102,50 @@ export const useStoreMusic = defineStore("storeMusic", {
     },
 
     async deleteItems(idItem, id, name) {
-      const clone = _.cloneDeep(this.usersCollectionMusic);
-      const { music } = clone.find((item) => item.id === id);
+      const music = _.cloneDeep(this.music);
       const newItems = music[name].filter((item) => item.id !== idItem);
-
       music[name] = newItems;
 
       await updateDoc(doc(musicCollectionRef, id), {
         music,
       });
     },
-  },
 
-  getters: {
-    getUserMusic: (state) => (uid) => {
-      return state.usersCollectionMusic.find(
-        (collection) => collection.uid === uid
-      );
+    async getElementId(userUid) {
+      //   const docRef = doc(musicCollectionRef, userId);
+      //   try {
+      //     const docSnap = await getDoc(docRef);
+      //     if (docSnap.exists()) {
+      //       console.log(docSnap.data());
+      //     } else {
+      //       console.log("Document does not exist");
+      //     }
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+
+      onSnapshot(doc(musicCollectionRef, userUid), (doc) => {
+        this.music = doc.data().music;
+        this.uid = doc.data().uid;
+      });
     },
-    
+
+    clearStore() {
+      this.music = {};
+      this.uid = null;
+    },
+  },
+  getters: {
+    // getUserMusic: (state) => (uid) => {
+    //   return state.usersCollectionMusic.find(
+    //     (collection) => collection.uid === uid
+    //   );
+    // },
+    getMusic: (state) => {
+      return state.music;
+    },
+    getUid: (state) => {
+      return state.uid;
+    },
   },
 });
