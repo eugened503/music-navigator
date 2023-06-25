@@ -8,12 +8,12 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, computed, watch } from "vue";
+import { onBeforeMount, computed, watch } from "vue";
 import { useStoreMusic } from "./stores/storeMusic";
 import { useStoreUser } from "./stores/storeUser";
 
 const { logout, fetchUser, $state } = useStoreUser();
-const { getMusic, getElementId } = useStoreMusic();
+const { getElementId } = useStoreMusic();
 
 onBeforeMount(() => {
   fetchUser();

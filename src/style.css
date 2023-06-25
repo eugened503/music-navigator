@@ -1,13 +1,14 @@
+@import "../src/assets/font/stylesheet.css";
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: "Source Sans Pro", sans-serif;
+  /* font-family: Barlow, Open Sans, Lucida Grande, Helvetica Neue, Helvetica,
+    Arial, Sans-serif; */
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: normal;
   font-style: normal;
-  color: #3b4a54; */
-  font-family: Barlow, Open Sans, Lucida Grande, Helvetica Neue, Helvetica,
-    Arial, Sans-serif;
   color: #222;
 }
 
@@ -29,8 +30,8 @@ input {
   transition: 0.3s;
 
   &:focus {
-    border-color: #d7d7d7;;
-    box-shadow: 0 0 8px #d7d7d7;;
+    border-color: #d7d7d7;
+    box-shadow: 0 0 8px #d7d7d7;
   }
 }
 
@@ -49,4 +50,3 @@ li {
 a {
   text-decoration: none;
 }
-

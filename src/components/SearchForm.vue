@@ -35,7 +35,6 @@ const search = (currentRequest) => {
   switch (props.requestName) {
     case "track":
       trackSearch(currentRequest);
-      //videosSearch(currentRequest);
       break;
     case "album":
       albumSearch(currentRequest);

@@ -39,13 +39,6 @@ export default function useUserPagination(currentItems, pageName) {
     store.getPrevPage(pageName);
   };
 
-  // watch(
-  //   () => currentItems.value,
-  //   () => {
-  //     setPages();
-  //   }
-  // );
-
   watch(currentItems, setPages);
   
   return {

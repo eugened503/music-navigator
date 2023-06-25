@@ -27,7 +27,7 @@
   </section>
 </template>
 <script setup>
-import { computed, onMounted, watch } from "vue";
+import { computed, onMounted } from "vue";
 import SearchForm from "../components/SearchForm.vue";
 import Album from "../components/Album.vue";
 import { useStoreAPI } from "../stores/storeAPI";

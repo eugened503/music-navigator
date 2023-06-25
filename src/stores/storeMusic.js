@@ -24,12 +24,9 @@ const musicCollectionQuery = query(musicCollectionRef, orderBy("date", "desc"));
 export const useStoreMusic = defineStore("storeMusic", {
   state: () => {
     return {
-      //usersCollectionMusic: [],
       musicLoaded: false,
-      //collectionMusicId: {},
       music: {},
       uid: null,
-      //musicId: null,
     };
   },
   actions: {
@@ -58,7 +55,6 @@ export const useStoreMusic = defineStore("storeMusic", {
       // });
 
       //this.musicId = newMusicAdded.id;
-      //localStorage.setItem("musicId", newMusicAdded.id);
       await setDoc(doc(musicCollectionRef, userUid), {
         date: Date.now(),
         uid: userUid,
@@ -123,10 +119,11 @@ export const useStoreMusic = defineStore("storeMusic", {
       //   } catch (error) {
       //     console.log(error);
       //   }
-
+      this.musicLoaded = false;
       onSnapshot(doc(musicCollectionRef, userUid), (doc) => {
         this.music = doc.data().music;
         this.uid = doc.data().uid;
+        this.musicLoaded = true;
       });
     },
 
