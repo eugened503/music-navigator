@@ -126,5 +126,8 @@ export const useStoreUser = defineStore("storeUser", {
     getLoginLoaded: (state) => {
       return state.loginLoaded;
     },
+    getAccessToken: (state) => {
+      return state.accessToken;
+    },
   },
 });

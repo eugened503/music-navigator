@@ -1,7 +1,6 @@
 <template>
   <main class="login">
     <section class="forms">
-      <!-- <form class="login" @submit.prevent="login(loginForm)"> -->
       <form class="login" @submit.prevent="submitForm">
         <h2>Login</h2>
         <input
@@ -11,7 +10,6 @@
           name="email"
           autocomplete="on"
         />
-        <!-- {{ v$.email.$errors }} -->
         <div class="form__errors">
           <div v-for="(error, index) of v$.email.$errors" :key="index">
             <p class="form__error">{{ error.$message }}</p>
@@ -24,14 +22,18 @@
           name="password"
           autocomplete="on"
         />
-        <!-- {{ v$.password.$errors }} -->
         <div class="form__errors">
           <div v-for="(error, index) of v$.password.$errors" :key="index">
             <p class="form__error">{{ error.$message }}</p>
           </div>
         </div>
-        <button :disabled="getLoginLoaded" type="submit">Login</button>
-        <router-link :to="{ name: 'Register' }">Register</router-link>
+        <button class="button" :disabled="getLoginLoaded" type="submit">
+          Login
+        </button>
+        <p>
+          У вас нет профиля?
+          <router-link :to="{ name: 'Register' }">Зарегистрируйтесь бесплатно</router-link>
+        </p>
       </form>
     </section>
   </main>
@@ -42,12 +44,7 @@ import { computed, reactive } from "vue";
 import { useStoreUser } from "../stores/storeUser";
 import useVuelidate from "@vuelidate/core";
 import { storeToRefs } from "pinia";
-import {
-  required,
-  minLength,
-  helpers,
-  email,
-} from "@vuelidate/validators";
+import { required, minLength, helpers, email } from "@vuelidate/validators";
 
 const { login } = useStoreUser();
 const { getLoginLoaded } = storeToRefs(useStoreUser());
@@ -89,7 +86,6 @@ const submitForm = async () => {
 }
 
 form {
-  //flex: 1 1 0%;
   margin: auto;
   padding: 128px 16px 16px;
 
@@ -100,17 +96,6 @@ form {
   &.login input:not([type="submit"]) {
     color: #2c3e50;
     border-bottom: 2px solid #2c3e50;
-  }
-
-  &.login button {
-    width: 100%;
-    background-color: rgb(245, 66, 101);
-    color: #fff;
-    font-weight: 700;
-    padding: 1rem 2rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    text-transform: uppercase;
   }
 }
 

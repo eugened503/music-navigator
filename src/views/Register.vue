@@ -17,7 +17,7 @@
           name="password"
           autocomplete="on"
         />
-        <input type="submit" value="Register" />
+        <button type="submit">Register</button>
         <router-link :to="{ name: 'Login' }">Login</router-link>
       </form>
     </section>
@@ -47,7 +47,7 @@ form {
 }
 
 form.register {
-  color: #fff;
+  color: $clr-white;
   background-color: rgb(245, 66, 101);
   background-image: linear-gradient(
     to bottom right,
@@ -91,17 +91,7 @@ input::placeholder {
 }
 
 form.register input:not([type="submit"]) {
-  color: #fff;
-  border-bottom: 2px solid #fff;
-}
-
-form.register input[type="submit"] {
-  background-color: #fff;
-  color: rgb(245, 66, 101);
-  font-weight: 700;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  text-transform: uppercase;
+  color: $clr-white;
+  border-bottom: 2px solid $clr-white;
 }
 </style>
