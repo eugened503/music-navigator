@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <div id="nav" v-if="accessToken">
     <router-link :to="{ name: 'Search' }">Search</router-link> |
     <router-link :to="{ name: 'Favourite' }">Favourite</router-link> |
@@ -11,18 +12,14 @@
 import { onBeforeMount, computed, watch } from "vue";
 import { useStoreMusic } from "./stores/storeMusic";
 import { useStoreUser } from "./stores/storeUser";
+import Header from "./components/Header.vue";
 
 const { logout, fetchUser, $state } = useStoreUser();
 const { getElementId } = useStoreMusic();
-
-// onBeforeMount(() => {
-//   fetchUser();
-// });
-onBeforeMount(fetchUser);
-
 const uid = computed(() => $state.uid);
 const accessToken = computed(() => $state.accessToken);
 
+onBeforeMount(fetchUser);
 watch(uid, getElementId);
 </script>
 

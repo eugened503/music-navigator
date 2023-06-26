@@ -67,7 +67,7 @@ const { lovedItems, handleItems, isImage } = useUserContent(
       padding-left: 0;
       margin-top: 0;
       background-color: hsla(0, 0%, 100%, 0.85);
-      background-image: url(../assets/play.svg);
+      background-image: url(../assets/images/play.svg);
       background-size: 50%;
       background-position: 61% center;
       background-repeat: no-repeat;
@@ -91,7 +91,7 @@ const { lovedItems, handleItems, isImage } = useUserContent(
     &.loved {
       height: 32px;
       width: 32px;
-      background-image: url(../assets/heart.svg);
+      background-image: url(../assets/images/heart.svg);
       background-size: 24px 24px;
       background-repeat: no-repeat;
       background-position: center;
@@ -138,4 +138,3 @@ const { lovedItems, handleItems, isImage } = useUserContent(
   }
 }
 </style>
-../composables/useUserContent.js

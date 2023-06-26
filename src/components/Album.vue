@@ -49,7 +49,7 @@ const { lovedItems, handleItems, isImage } = useUserContent(
     &.loved {
       height: 32px;
       width: 32px;
-      background-image: url(../assets/heart.svg);
+      background-image: url(../assets/images/heart.svg);
       background-size: 24px 24px;
       background-repeat: no-repeat;
       background-position: center;
