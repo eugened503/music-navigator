@@ -5,7 +5,7 @@
     <section class="tracks">
       <h2>Tracks</h2>
       <div class="table">
-        <TableRow
+        <Track
           v-for="(track, index) in displayedItems"
           :key="index"
           :artist="track.artist"
@@ -14,7 +14,7 @@
           :play="track.url"
           :listeners="track.listeners"
         >
-        </TableRow>
+        </Track>
       </div>
       <h3 v-if="trackLoaded && tracks.length === 0 && !error">
         No tracks found
@@ -32,7 +32,7 @@
 </template>
 <script setup>
 import { computed, onMounted } from "vue";
-import TableRow from "../components/TableRow.vue";
+import Track from "./Track.vue";
 import SearchForm from "../components/SearchForm.vue";
 import Pagination from "../components/Pagination.vue";
 import { useStoreAPI } from "../stores/storeAPI";

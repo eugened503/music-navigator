@@ -20,8 +20,7 @@
   </a>
 </template>
 <script setup>
-import { computed } from "vue";
-import { getImage } from "../utils/getImage.js";
+import { toRef } from "vue";
 import { useStoreMusic } from "../stores/storeMusic";
 import useUserContent from "../composables/useUserContent";
 const props = defineProps({
@@ -30,10 +29,14 @@ const props = defineProps({
   name: String,
   listeners: String,
 });
-const isImage = computed(() => getImage(props.image));
+const imgRef = toRef(props, "image");
 const { addArtists, deleteArtists } = useStoreMusic();
-const { lovedItems, handleItems } =
-useUserContent("artists", addArtists, deleteArtists);
+const { lovedItems, handleItems, isImage } = useUserContent(
+  "artists",
+  addArtists,
+  deleteArtists,
+  imgRef
+);
 </script>
 
 <style lang="scss" scoped>

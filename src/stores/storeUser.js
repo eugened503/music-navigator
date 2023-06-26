@@ -17,6 +17,7 @@ export const useStoreUser = defineStore("storeUser", {
       uid: null,
       accessToken: localStorage.getItem("accessToken") || null,
       userLoaded: false,
+      loginLoaded: false,
     };
   },
   actions: {
@@ -64,6 +65,7 @@ export const useStoreUser = defineStore("storeUser", {
     },
 
     async login(details) {
+      this.loginLoaded = true;
       const { email, password } = details;
       try {
         await signInWithEmailAndPassword(auth, email, password);
@@ -87,6 +89,7 @@ export const useStoreUser = defineStore("storeUser", {
       }
       this.user = auth.currentUser;
       this.accessToken = auth.currentUser.accessToken;
+      this.loginLoaded = false;
       router.push("/");
     },
 
@@ -117,6 +120,11 @@ export const useStoreUser = defineStore("storeUser", {
           }
         }
       });
+    },
+  },
+  getters: {
+    getLoginLoaded: (state) => {
+      return state.loginLoaded;
     },
   },
 });

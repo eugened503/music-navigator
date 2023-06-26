@@ -4,7 +4,7 @@
       <h2>Favourite Tracks</h2>
       <div class="table">
         <!-- <transition-group name="user-list"> </transition-group> -->
-        <TableRow
+        <Track
           v-for="track in favouriteItems"
           :key="track.id"
           :artist="track.artist"
@@ -14,14 +14,14 @@
           :listeners="track.listeners"
           v-lazy-load
         >
-        </TableRow>
+        </Track>
       </div>
     </section>
   </main>
 </template>
 <script setup>
 import useFavouriteContent from "../composables/useFavouriteContent";
-import TableRow from "./TableRow.vue";
+import Track from "./Track.vue";
 const { favouriteItems } = useFavouriteContent("tracks");
 </script>
 

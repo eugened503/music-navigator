@@ -8,10 +8,10 @@ export default function useUserPagination(currentItems, pageName) {
   const pages = computed(() => store.$state.pages[pageName]);
 
   const paginate = (items) => {
-    let pageValue = page.value;
-    let perPageValue = perPage.value;
-    let from = pageValue * perPageValue - perPageValue;
-    let to = pageValue * perPageValue;
+    const pageValue = page.value;
+    const perPageValue = perPage.value;
+    const from = pageValue * perPageValue - perPageValue;
+    const to = pageValue * perPageValue;
     return items?.slice(from, to);
   };
 
@@ -20,7 +20,7 @@ export default function useUserPagination(currentItems, pageName) {
   const setPages = () => {
     store.resetPage(pageName);
     store.clearPages(pageName);
-    let numberOfPages = Math.ceil(currentItems.value?.length / perPage.value);
+    const numberOfPages = Math.ceil(currentItems.value?.length / perPage.value);
     for (let index = 1; index <= numberOfPages; index++) {
       store.addPages(pageName, index);
     }

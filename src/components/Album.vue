@@ -22,8 +22,7 @@
   </a>
 </template>
 <script setup>
-import { computed } from "vue";
-import { getImage } from "../utils/getImage.js";
+import { toRef } from "vue";
 import { useStoreMusic } from "../stores/storeMusic";
 import useUserContent from "../composables/useUserContent";
 const props = defineProps({
@@ -32,13 +31,13 @@ const props = defineProps({
   name: String,
   artist: String,
 });
-
-const isImage = computed(() => getImage(props.image));
+const imgRef = toRef(props, "image");
 const { addAlbums, deleteAlbums} = useStoreMusic();
-const { lovedItems, handleItems } = useUserContent(
+const { lovedItems, handleItems, isImage } = useUserContent(
   "albums",
   addAlbums,
   deleteAlbums,
+  imgRef
 );
 </script>
 
@@ -79,4 +78,3 @@ const { lovedItems, handleItems } = useUserContent(
   }
 }
 </style>
-../composables/useUserContentOld.js

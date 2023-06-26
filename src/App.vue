@@ -15,16 +15,15 @@ import { useStoreUser } from "./stores/storeUser";
 const { logout, fetchUser, $state } = useStoreUser();
 const { getElementId } = useStoreMusic();
 
-onBeforeMount(() => {
-  fetchUser();
-});
+// onBeforeMount(() => {
+//   fetchUser();
+// });
+onBeforeMount(fetchUser);
 
 const uid = computed(() => $state.uid);
 const accessToken = computed(() => $state.accessToken);
 
 watch(uid, getElementId);
-
-
 </script>
 
 <style lang="scss" scoped>

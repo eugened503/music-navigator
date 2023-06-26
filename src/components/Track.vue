@@ -30,8 +30,7 @@
   </a>
 </template>
 <script setup>
-import { computed, ref, watch, onMounted, onBeforeMount } from "vue";
-import { getImage } from "../utils/getImage.js";
+import { toRef } from "vue";
 import { useStoreMusic } from "../stores/storeMusic";
 import useUserContent from "../composables/useUserContent";
 
@@ -42,16 +41,15 @@ const props = defineProps({
   play: String,
   listeners: String,
 });
-
-const isImage = computed(() => getImage(props.image));
+const imgRef = toRef(props, "image");
 const { addTracks, deleteTracks } = useStoreMusic();
 
-const { lovedItems, handleItems } = useUserContent(
+const { lovedItems, handleItems, isImage } = useUserContent(
   "tracks",
   addTracks,
   deleteTracks,
+  imgRef
 );
-
 </script>
 
 <style lang="scss" scoped>
