@@ -65,6 +65,8 @@ const { logout } = useStoreUser();
   width: 100%;
   background-color: $clr-black;
   padding: 10px 20px;
+  z-index: 1;
+  top: 0;
 
   @media screen and (max-width: $laptop-small) {
     padding: 10px 10px;
@@ -121,6 +123,20 @@ const { logout } = useStoreUser();
       gap: 10px;
       a {
         color: inherit;
+        &.router-link-active,
+        &.router-link-exact-active {
+          position: relative;
+          font-weight: 700;
+          &::after {
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: $clr-carrot;
+            content: "";
+            bottom: -4px;
+            left: 0;
+          }
+        }
       }
     }
     .button {

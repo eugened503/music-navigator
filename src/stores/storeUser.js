@@ -16,13 +16,14 @@ export const useStoreUser = defineStore("storeUser", {
       user: null,
       uid: null,
       accessToken: localStorage.getItem("accessToken") || null,
-      userLoaded: false,
-      loginLoaded: false,
+      //userLoaded: false,
+      loaded: false,
     };
   },
   actions: {
     async register(details) {
-      this.userLoaded = false;
+      //this.userLoaded = false;
+      this.loaded = true;
       const { email, password } = details;
       try {
         await createUserWithEmailAndPassword(auth, email, password);
@@ -57,7 +58,8 @@ export const useStoreUser = defineStore("storeUser", {
       this.user = authCurrentUser;
       this.uid = userUid;
       this.accessToken = accessToken;
-      this.userLoaded = true;
+      //this.userLoaded = true;
+      this.loaded = false;
 
       localStorage.setItem("accessToken", accessToken);
 
@@ -65,7 +67,7 @@ export const useStoreUser = defineStore("storeUser", {
     },
 
     async login(details) {
-      this.loginLoaded = true;
+      this.loaded = true;
       const { email, password } = details;
       try {
         await signInWithEmailAndPassword(auth, email, password);
@@ -89,14 +91,14 @@ export const useStoreUser = defineStore("storeUser", {
       }
       this.user = auth.currentUser;
       this.accessToken = auth.currentUser.accessToken;
-      this.loginLoaded = false;
+      this.loaded = false;
       router.push("/");
     },
 
     async logout() {
       await signOut(auth);
-      this.user = null;
-      this.uid = null;
+      //this.user = null;
+      //this.uid = null;
       this.accessToken = null;
       localStorage.removeItem("accessToken");
       const { clearStore } = useStoreMusic();
@@ -112,6 +114,7 @@ export const useStoreUser = defineStore("storeUser", {
       auth.onAuthStateChanged(async (user) => {
         if (user === null) {
           this.user = null;
+          this.uid = null;
         } else {
           this.user = user;
           this.uid = auth.currentUser.uid;
@@ -123,8 +126,8 @@ export const useStoreUser = defineStore("storeUser", {
     },
   },
   getters: {
-    getLoginLoaded: (state) => {
-      return state.loginLoaded;
+    getLoaded: (state) => {
+      return state.loaded;
     },
     getAccessToken: (state) => {
       return state.accessToken;
