@@ -48,6 +48,7 @@
 </template>
 
 <script setup>
+import { reactive } from "vue";
 import useFormContent from "../composables/useFormContent";
 
 const props = defineProps({
@@ -56,11 +57,15 @@ const props = defineProps({
   titleLink: String,
   subTitleLink: String,
   nameButton: String,
-  form: Object,
   action: Function,
 });
 
-const { getLoaded, submitForm, v$ } = useFormContent(props.action, props.form);
+const form = reactive({
+  email: "",
+  password: "",
+});
+
+const { getLoaded, submitForm, v$ } = useFormContent(props.action, form);
 </script>
 
 <style lang="scss" scoped>

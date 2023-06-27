@@ -30,20 +30,21 @@ export const useStoreUser = defineStore("storeUser", {
       } catch (error) {
         switch (error.code) {
           case "auth/email-already-in-use":
-            alert("Email already in use");
+            alert("Email уже используется");
             break;
           case "auth/invalid-email":
-            alert("Invalid email");
+            alert("Некорректный Email");
             break;
           case "auth/operation-not-allowed":
-            alert("Operation not allowed");
+            alert("Операция не разрешена");
             break;
           case "auth/weak-password":
-            alert("Weak password");
+            alert("Ненадежный пароль");
             break;
           default:
-            alert("Something went wrong");
+            alert("Что-то пошло не так...");
         }
+        this.loaded = false;
 
         return;
       }
@@ -60,9 +61,7 @@ export const useStoreUser = defineStore("storeUser", {
       this.accessToken = accessToken;
       //this.userLoaded = true;
       this.loaded = false;
-
       localStorage.setItem("accessToken", accessToken);
-
       router.push("/");
     },
 
@@ -74,15 +73,15 @@ export const useStoreUser = defineStore("storeUser", {
       } catch (error) {
         switch (error.code) {
           case "auth/user-not-found":
-            alert("User not found");
+            alert("Пользователь не найден");
             break;
           case "auth/wrong-password":
-            alert("Wrong password");
+            alert("Неверный пароль или логин");
             break;
           default:
-            alert("Something went wrong");
+            alert("Что-то пошло не так...");
         }
-
+        this.loaded = false;
         return;
       }
 

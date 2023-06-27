@@ -80,4 +80,3 @@ const { lovedItems, handleItems, isImage } = useUserContent(
   }
 }
 </style>
-../composables/useUserContentOld.js
