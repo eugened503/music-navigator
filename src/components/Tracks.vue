@@ -1,34 +1,29 @@
 <template>
-  <main class="main">
-    <SearchForm requestName="track" />
-
-    <section class="tracks">
-      <h2>Tracks</h2>
-      <div class="table">
-        <Track
-          v-for="(track, index) in displayedItems"
-          :key="index"
-          :artist="track.artist"
-          :name="track.name"
-          :image="track.image[0]"
-          :play="track.url"
-          :listeners="track.listeners"
-        >
-        </Track>
-      </div>
-      <h3 v-if="trackLoaded && tracks.length === 0 && !error">
-        No tracks found
-      </h3>
-      <h3 v-if="error">{{ error }}</h3>
-    </section>
-    <Pagination
-      @paginationClick="getPageNumber"
-      @nextPage="getNextPage"
-      @prevPage="getPrevPage"
-      :pages="pages"
-      :page="page"
-    />
-  </main>
+  <SearchForm requestName="track" />
+  <section class="tracks">
+    <h1>Tracks</h1>
+    <div class="tracks__body">
+      <Track
+        v-for="(track, index) in displayedItems"
+        :key="index"
+        :artist="track.artist"
+        :name="track.name"
+        :image="track.image[0]"
+        :play="track.url"
+        :listeners="track.listeners"
+      >
+      </Track>
+    </div>
+    <h2 v-if="trackLoaded && tracks.length === 0 && !error">No tracks found</h2>
+    <h2 v-if="error">{{ error }}</h2>
+  </section>
+  <Pagination
+    @paginationClick="getPageNumber"
+    @nextPage="getNextPage"
+    @prevPage="getPrevPage"
+    :pages="pages"
+    :page="page"
+  />
 </template>
 <script setup>
 import { computed, onMounted } from "vue";
@@ -56,25 +51,13 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  .tracks {
-    min-height: 302px;
-    h2 {
-      font-size: 24px;
-      line-height: 30px;
-      margin: 24px 0 0;
-      font-weight: 400;
-    }
-
-    h3 {
-      color: red;
-    }
-    .table {
-      margin: 24px 0 0;
-    }
+.tracks {
+  min-height: 302px;
+  @media screen and (max-width: $tablet) {
+    min-height: 318px;
   }
-  :deep(.pagination) {
-    margin: 20px 0 0;
+  &__body {
+    margin: 24px 0 0;
   }
 }
 </style>

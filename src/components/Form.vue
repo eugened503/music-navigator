@@ -107,16 +107,15 @@ section {
   }
 
   input {
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-
     display: block;
     width: 100%;
     font-size: 24px;
     margin-bottom: 12px;
     padding: 8px 0;
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
 
     &:not([type="submit"]) {
       opacity: 0.8;

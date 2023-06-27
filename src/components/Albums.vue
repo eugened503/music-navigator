@@ -1,30 +1,27 @@
 <template>
-  <section>
-    <SearchForm requestName="album" />
-    <div class="albums">
-      <h2>Albums</h2>
-      <div class="results">
-        <Album
-          v-for="(album, index) in displayedItems"
-          :key="index"
-          :play="album.url"
-          :image="album.image[2]"
-          :name="album.name"
-          :artist="album.artist"        
-        
-        />
-      </div>
+  <SearchForm requestName="album" />
+  <section class="albums">
+    <h1>Albums</h1>
+    <div class="albums__body">
+      <Album
+        v-for="(album, index) in displayedItems"
+        :key="index"
+        :play="album.url"
+        :image="album.image[3]"
+        :name="album.name"
+        :artist="album.artist"
+      />
     </div>
-    <Pagination
-      @paginationClick="getPageNumber"
-      @nextPage="getNextPage"
-      @prevPage="getPrevPage"
-      :pages="pages"
-      :page="page"
-    />
-    <h3 v-if="albumLoaded && albums.length === 0 && !error">No albums found</h3>
-    <h3 v-if="error">{{ error }}</h3>
+    <h2 v-if="albumLoaded && albums.length === 0 && !error">No albums found</h2>
+    <h2 v-if="error">{{ error }}</h2>
   </section>
+  <Pagination
+    @paginationClick="getPageNumber"
+    @nextPage="getNextPage"
+    @prevPage="getPrevPage"
+    :pages="pages"
+    :page="page"
+  />
 </template>
 <script setup>
 import { computed, onMounted } from "vue";
@@ -52,32 +49,19 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-section {
-  h3 {
-    color: red;
-  }
-  .form {
-    margin: 20px 0 0;
-  }
-
-  :deep(.pagination) {
-    margin: 20px 0 0;
-  }
-}
-section .albums {
-  h2 {
-    font-size: 24px;
-    line-height: 30px;
+.albums {
+  &__body {
     margin: 24px 0 0;
-    font-weight: 400;
-  }
-
-  .results {
-    margin: 24px 0 0;
-    min-height: 268px;
+    gap: 24px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     row-gap: 24px;
+    @media screen and (max-width: $laptop-small) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: $mobile) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <a :href="play" target="_blank" class="result">
-    <img class="result__image" :src="isImage" alt="image" />
-    <div class="result__info">
-      <p class="result__name">{{ name }}</p>
-      <p class="result__listeners">{{ listeners }}<span> listeners</span></p>
+  <a :href="play" target="_blank" class="artist">
+    <img class="artist__image" :src="isImage" alt="image" />
+    <div class="artist__info">
+      <p class="artist__name">{{ name }}</p>
+      <p class="artist__listeners">{{ listeners }}<span> listeners</span></p>
     </div>
     <button
       @click.stop.prevent="
@@ -14,7 +14,7 @@
           play,
         })
       "
-      class="result__image loved"
+      class="artist__image loved"
       :class="{ active: lovedItems(name) }"
     ></button>
   </a>
@@ -40,7 +40,7 @@ const { lovedItems, handleItems, isImage } = useUserContent(
 </script>
 
 <style lang="scss" scoped>
-.result {
+.artist {
   display: flex;
   gap: 15px;
 

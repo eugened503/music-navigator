@@ -1,23 +1,20 @@
 <template>
-  <main class="main">
-    <section class="tracks">
-      <h2>Favourite Tracks</h2>
-      <div class="table">
-        <!-- <transition-group name="user-list"> </transition-group> -->
-        <Track
-          v-for="track in favouriteItems"
-          :key="track.id"
-          :artist="track.artist"
-          :name="track.name"
-          :image="track.image"
-          :play="track.url"
-          :listeners="track.listeners"
-          v-lazy-load
-        >
-        </Track>
-      </div>
-    </section>
-  </main>
+  <section class="tracks">
+    <h1>Favourite Tracks</h1>
+    <div class="tracks__body">
+      <Track
+        v-for="track in favouriteItems"
+        :key="track.id"
+        :artist="track.artist"
+        :name="track.name"
+        :image="track.image"
+        :play="track.url"
+        :listeners="track.listeners"
+        v-lazy-load
+      >
+      </Track>
+    </div>
+  </section>
 </template>
 <script setup>
 import useFavouriteContent from "../composables/useFavouriteContent";
@@ -26,23 +23,10 @@ const { favouriteItems } = useFavouriteContent("tracks");
 </script>
 
 <style lang="scss" scoped>
-.main {
-  .tracks {
-    h2 {
-      font-size: 24px;
-      line-height: 30px;
-      margin: 24px 0 0;
-      font-weight: 400;
-    }
-
-    h3 {
-      color: red;
-    }
-    .table {
-      margin: 24px 0 0;
-    }
-
-    :deep(.table-row) {
+.tracks {
+  &__body {
+    margin: 24px 0 0;
+    :deep(.track) {
       visibility: hidden;
       opacity: 0;
       &.active {
@@ -52,24 +36,5 @@ const { favouriteItems } = useFavouriteContent("tracks");
       }
     }
   }
-  :deep(.pagination) {
-    margin: 20px 0 0;
-  }
-  // .user-list-item {
-  //   display: inline-block;
-  //   margin-right: 10px;
-  // }
-  // .user-list-enter-active,
-  // .user-list-leave-active {
-  //   transition: all 0.2s ease;
-  // }
-  // .user-list-enter-from,
-  // .user-list-leave-to {
-  //   opacity: 0;
-  //   transform: translateX(130px);
-  // }
-  // .user-list-move {
-  //   transition: transform 0.2s ease;
-  // }
 }
 </style>

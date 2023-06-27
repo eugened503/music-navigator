@@ -1,32 +1,29 @@
 <template>
-  <section>
-    <SearchForm requestName="artist" />
-    <div class="artists">
-      <h2>Artists</h2>
-      <div class="results">
-        <Artist
-          v-for="(artist, index) in displayedItems"
-          :key="index"
-          :play="artist.url"
-          :image="artist.image[2]"
-          :name="artist.name"
-          :listeners="artist.listeners"        
-        
-        />
-      </div>
+  <SearchForm requestName="artist" />
+  <section class="artists">
+    <h1>Artists</h1>
+    <div class="artists__body">
+      <Artist
+        v-for="(artist, index) in displayedItems"
+        :key="index"
+        :play="artist.url"
+        :image="artist.image[2]"
+        :name="artist.name"
+        :listeners="artist.listeners"
+      />
     </div>
-    <Pagination
-      @paginationClick="getPageNumber"
-      @nextPage="getNextPage"
-      @prevPage="getPrevPage"
-      :pages="pages"
-      :page="page"
-    />
-    <h3 v-if="artistLoaded && artists.length === 0 && !error">
+    <h2 v-if="artistLoaded && artists.length === 0 && !error">
       No artists found
-    </h3>
-    <h3 v-if="error">{{ error }}</h3>
+    </h2>
+    <h2 v-if="error">{{ error }}</h2>
   </section>
+  <Pagination
+    @paginationClick="getPageNumber"
+    @nextPage="getNextPage"
+    @prevPage="getPrevPage"
+    :pages="pages"
+    :page="page"
+  />
 </template>
 <script setup>
 import { computed, onMounted } from "vue";
@@ -54,29 +51,9 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-section {
-  h3 {
-    color: red;
-  }
-  .form {
-    margin: 20px 0 0;
-  }
-
-  :deep(.pagination) {
-    margin: 20px 0 0;
-  }
-}
-section .artists {
-  h2 {
-    font-size: 24px;
-    line-height: 30px;
+.artists {
+  &__body {
     margin: 24px 0 0;
-    font-weight: 400;
-  }
-
-  .results {
-    margin: 24px 0 0;
-    min-height: 164px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 24px;

@@ -1,6 +1,6 @@
 <template>
-  <a :href="play" target="_blank" class="result">
-    <img class="result__image" :src="isImage" alt="image" />
+  <a :href="play" target="_blank" class="album">
+    <img class="album__image" :src="isImage" alt="image" />
     <button
       @click.stop.prevent="
         handleItems({
@@ -10,12 +10,12 @@
           play,
         })
       "
-      class="result__image loved"
+      class="album__image loved"
       :class="{ active: lovedItems(name, artist) }"
     ></button>
-    <div class="result__info">
-      <p class="result__album">{{ name }}</p>
-      <p class="result__artist">
+    <div class="album__info">
+      <p class="album__album">{{ name }}</p>
+      <p class="album__artist">
         {{ artist }}
       </p>
     </div>
@@ -32,7 +32,7 @@ const props = defineProps({
   artist: String,
 });
 const imgRef = toRef(props, "image");
-const { addAlbums, deleteAlbums} = useStoreMusic();
+const { addAlbums, deleteAlbums } = useStoreMusic();
 const { lovedItems, handleItems, isImage } = useUserContent(
   "albums",
   addAlbums,
@@ -42,34 +42,41 @@ const { lovedItems, handleItems, isImage } = useUserContent(
 </script>
 
 <style lang="scss" scoped>
-.result {
+.album {
+  position: relative;
   &__image {
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    height: auto;
     &.loved {
-      height: 32px;
-      width: 32px;
-      background-image: url(../assets/images/heart.svg);
-      background-size: 24px 24px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      height: 25px;
+      width: 25px;
+      background-image: url(../assets/images/heart_white.svg);
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-
       &.active {
-        background-color: chartreuse;
+        background-image: url(../assets/images/heart_love.svg);
       }
     }
   }
 
   &__info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
   }
 
   &__album {
     font-size: 14px;
     font-weight: 700;
     line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 5px;
+    width: 100%;
   }
 
   &__artist {

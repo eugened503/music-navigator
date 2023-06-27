@@ -1,7 +1,7 @@
 <template>
-  <a :href="play" target="_blank" class="table-row">
-    <div class="table-row__cell play"></div>
-    <div class="table-row__cell image">
+  <a :href="play" target="_blank" class="track">
+    <div class="track__cell play"></div>
+    <div class="track__cell image">
       <img :src="isImage" alt="image" />
     </div>
     <button
@@ -14,17 +14,18 @@
           listeners,
         })
       "
-      class="table-row__cell loved"
+      class="track__cell loved"
       :class="{ active: lovedItems(name) }"
     ></button>
 
-    <div class="table-row__cell name">
+    <div class="track__cell name">
       <p>{{ name }}</p>
+      <p class="tablet">{{ artist }}</p>
     </div>
-    <div class="table-row__cell artist">
+    <div class="track__cell artist desktop">
       <p>{{ artist }}</p>
     </div>
-    <div class="table-row__cell listeners">
+    <div class="track__cell listeners">
       <p>{{ listeners }}</p>
     </div>
   </a>
@@ -53,16 +54,19 @@ const { lovedItems, handleItems, isImage } = useUserContent(
 </script>
 
 <style lang="scss" scoped>
-.table-row {
+.track {
   display: grid;
   grid-template-columns:
     40px 40px 40px calc(319 / 800 * 100%) calc(213 / 800 * 100%)
     auto;
-  //display: flex;
   padding: 15px 0;
-  //align-items: center;
+  @media screen and (max-width: $tablet) {
+    grid-template-columns:
+      40px 40px 40px 37%
+      auto;
+  }
+
   &__cell {
-    //padding: 0 8px;
     &.play {
       padding-left: 0;
       margin-top: 0;
@@ -89,28 +93,38 @@ const { lovedItems, handleItems, isImage } = useUserContent(
       }
     }
     &.loved {
-      height: 32px;
-      width: 32px;
+      margin: auto;
+      height: 20px;
+      width: 20px;
       background-image: url(../assets/images/heart.svg);
-      background-size: 24px 24px;
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-
       &.active {
-        background-color: chartreuse;
+        background-image: url(../assets/images/heart_love.svg);
       }
     }
     &.name {
       display: flex;
       align-items: center;
+      @media screen and (max-width: $tablet) {
+        display: block;
+      }
       p {
         text-align: left;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         font-size: 14px;
-        line-height: 21px;
         font-weight: 700;
+        &.tablet {
+          display: none;
+          @media screen and (max-width: $tablet) {
+            display: flex;
+            font-weight: 400;
+            opacity: 0.8;
+          }
+        }
       }
     }
     &.artist {
@@ -123,13 +137,19 @@ const { lovedItems, handleItems, isImage } = useUserContent(
         white-space: nowrap;
         font-weight: 400;
         opacity: 0.8;
+        padding: 0 5px;
+      }
+      &.desktop {
+        @media screen and (max-width: $tablet) {
+          display: none;
+        }
       }
     }
     &.listeners {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       p {
-        text-align: right;
         font-weight: 400;
         opacity: 0.8;
         padding-right: 0;

@@ -1,8 +1,7 @@
 <template>
-  <section>
-    <div class="artists">
-      <h2>Favourite Artists</h2>
-      <div class="results">
+  <section class="artists">
+      <h1>Favourite Artists</h1>
+      <div class="artists__body">
         <Artist
           v-for="artist in favouriteItems"
           :key="artist.id"
@@ -12,7 +11,6 @@
           :listeners="artist.listeners"
           v-lazy-load
         />
-      </div>
     </div>
   </section>
 </template>
@@ -24,33 +22,13 @@ const { favouriteItems } = useFavouriteContent("artists");
 </script>
 
 <style lang="scss" scoped>
-section {
-  h3 {
-    color: red;
-  }
-  .form {
-    margin: 20px 0 0;
-  }
-
-  :deep(.pagination) {
-    margin: 20px 0 0;
-  }
-}
-section .artists {
-  h2 {
-    font-size: 24px;
-    line-height: 30px;
+.artists {
+  &__body {
     margin: 24px 0 0;
-    font-weight: 400;
-  }
-
-  .results {
-    margin: 24px 0 0;
-    min-height: 164px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 24px;
-    :deep(.result) {
+    :deep(.artist) {
       visibility: hidden;
       opacity: 0;
       &.active {

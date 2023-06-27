@@ -6,7 +6,7 @@
       v-if="page != 1"
       @click="handlePrevPage"
     >
-      --
+      «
     </button>
     <button
       type="button"
@@ -25,7 +25,7 @@
       @click="handleNextPage"
       v-if="page < pages?.length"
     >
-      ++
+      »
     </button>
   </div>
 </template>
@@ -58,13 +58,15 @@ const handlePrevPage = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px;
-    height: 20px;
-    color: white;
-    background-color: blue;
-
+    width: 34px;
+    height: 24px;
+    border: 1px solid $clr-smog;
+    transition: background-color 0.3s;
+    &:hover:not(.active) {
+      background-color: $clr-gray;
+    }
     &.active {
-      background-color: red;
+      background-color: $clr-carrot;
     }
   }
 }

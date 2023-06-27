@@ -10,6 +10,23 @@
   color: $clr-mineshaft;
 }
 
+#app {
+  min-width: 320px;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+h2 {
+  color: $clr-carrot;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
 button {
   background: none;
   border: none;
@@ -41,14 +58,6 @@ input {
   &:focus {
     border-color: $clr-smog;
     box-shadow: 0 0 8px $clr-smog;
-  }
-}
-
-svg {
-  opacity: 0.75;
-  transition: opacity 200ms ease-in;
-  &:hover {
-    opacity: 1;
   }
 }
 
