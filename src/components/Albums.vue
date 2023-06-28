@@ -2,7 +2,7 @@
   <SearchForm requestName="album" />
   <section class="albums">
     <h1>Albums</h1>
-    <div class="albums__body">
+    <div class="albums__body body">
       <Album
         v-for="(album, index) in displayedItems"
         :key="index"
@@ -51,7 +51,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .albums {
   &__body {
-    margin: 24px 0 0;
     gap: 24px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);

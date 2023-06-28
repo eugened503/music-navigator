@@ -68,3 +68,13 @@ li {
 a {
   text-decoration: none;
 }
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.body {
+  margin: 24px 0 0;
+}

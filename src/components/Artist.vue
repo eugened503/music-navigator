@@ -1,10 +1,6 @@
 <template>
   <a :href="play" target="_blank" class="artist">
     <img class="artist__image" :src="isImage" alt="image" />
-    <div class="artist__info">
-      <p class="artist__name">{{ name }}</p>
-      <p class="artist__listeners">{{ listeners }}<span> listeners</span></p>
-    </div>
     <button
       @click.stop.prevent="
         handleItems({
@@ -17,6 +13,10 @@
       class="artist__image loved"
       :class="{ active: lovedItems(name) }"
     ></button>
+    <div class="artist__info">
+      <p class="artist__name">{{ name }}</p>
+      <p class="artist__listeners">{{ listeners }}<span> listeners</span></p>
+    </div>
   </a>
 </template>
 <script setup>
@@ -43,21 +43,27 @@ const { lovedItems, handleItems, isImage } = useUserContent(
 .artist {
   display: flex;
   gap: 15px;
+  position: relative;
+  @media screen and (max-width: $tablet) {
+    display: block;
+  }
 
   &__image {
     width: 70px;
     height: 70px;
     border-radius: 50%;
     &.loved {
-      height: 32px;
-      width: 32px;
-      background-image: url(../assets/images/heart.svg);
-      background-size: 24px 24px;
+      position: absolute;
+      top: 0;
+      left: 47px;
+      height: 25px;
+      width: 25px;
+      background-image: url(../assets/images/heart_white.svg);
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-
       &.active {
-        background-color: chartreuse;
+        background-image: url(../assets/images/heart_love.svg);
       }
     }
   }

@@ -19,14 +19,14 @@
     ></button>
 
     <div class="track__cell name">
-      <p>{{ name }}</p>
-      <p class="tablet">{{ artist }}</p>
+      <p class="ellipsis">{{ name }}</p>
+      <p class="tablet ellipsis">{{ artist }}</p>
     </div>
     <div class="track__cell artist desktop">
-      <p>{{ artist }}</p>
+      <p class="ellipsis">{{ artist }}</p>
     </div>
     <div class="track__cell listeners">
-      <p>{{ listeners }}</p>
+      <p class="ellipsis">{{ listeners }}</p>
     </div>
   </a>
 </template>
@@ -58,12 +58,12 @@ const { lovedItems, handleItems, isImage } = useUserContent(
   display: grid;
   grid-template-columns:
     40px 40px 40px calc(319 / 800 * 100%) calc(213 / 800 * 100%)
-    auto;
+    minmax(120px, 350px);
   padding: 15px 0;
   @media screen and (max-width: $tablet) {
     grid-template-columns:
       40px 40px 40px 37%
-      auto;
+      minmax(40px, 350px);
   }
 
   &__cell {
@@ -112,15 +112,12 @@ const { lovedItems, handleItems, isImage } = useUserContent(
       }
       p {
         text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         font-size: 14px;
         font-weight: 700;
         &.tablet {
           display: none;
           @media screen and (max-width: $tablet) {
-            display: flex;
+            display: block;
             font-weight: 400;
             opacity: 0.8;
           }
@@ -132,12 +129,9 @@ const { lovedItems, handleItems, isImage } = useUserContent(
       align-items: center;
       p {
         text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         font-weight: 400;
         opacity: 0.8;
-        padding: 0 5px;
+        padding: 0 0 0 5px;
       }
       &.desktop {
         @media screen and (max-width: $tablet) {
@@ -152,7 +146,7 @@ const { lovedItems, handleItems, isImage } = useUserContent(
       p {
         font-weight: 400;
         opacity: 0.8;
-        padding-right: 0;
+        padding: 0 0 0 5px;
       }
     }
   }

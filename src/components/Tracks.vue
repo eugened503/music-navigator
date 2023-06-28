@@ -2,7 +2,7 @@
   <SearchForm requestName="track" />
   <section class="tracks">
     <h1>Tracks</h1>
-    <div class="tracks__body">
+    <div class="body">
       <Track
         v-for="(track, index) in displayedItems"
         :key="index"
@@ -55,9 +55,6 @@ onMounted(() => {
   min-height: 302px;
   @media screen and (max-width: $tablet) {
     min-height: 318px;
-  }
-  &__body {
-    margin: 24px 0 0;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <SearchForm requestName="artist" />
   <section class="artists">
     <h1>Artists</h1>
-    <div class="artists__body">
+    <div class="artists__body body">
       <Artist
         v-for="(artist, index) in displayedItems"
         :key="index"
@@ -53,7 +53,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .artists {
   &__body {
-    margin: 24px 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 24px;
