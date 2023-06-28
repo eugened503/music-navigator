@@ -51,10 +51,9 @@ onMounted(() => {
 <style lang="scss" scoped>
 .albums {
   &__body {
-    gap: 24px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    row-gap: 24px;
+    gap: 24px;
     @media screen and (max-width: $laptop-small) {
       grid-template-columns: 1fr 1fr;
     }

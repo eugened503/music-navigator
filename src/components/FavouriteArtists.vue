@@ -1,7 +1,7 @@
 <template>
   <section class="artists">
       <h1>Favourite Artists</h1>
-      <div class="artists__body">
+      <div class="artists__body body">
         <Artist
           v-for="artist in favouriteItems"
           :key="artist.id"
@@ -24,7 +24,6 @@ const { favouriteItems } = useFavouriteContent("artists");
 <style lang="scss" scoped>
 .artists {
   &__body {
-    margin: 24px 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 24px;

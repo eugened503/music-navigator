@@ -1,7 +1,7 @@
 <template>
   <section class="tracks">
     <h1>Favourite Tracks</h1>
-    <div class="tracks__body">
+    <div class="tracks__body body">
       <Track
         v-for="track in favouriteItems"
         :key="track.id"
@@ -25,7 +25,6 @@ const { favouriteItems } = useFavouriteContent("tracks");
 <style lang="scss" scoped>
 .tracks {
   &__body {
-    margin: 24px 0 0;
     :deep(.track) {
       visibility: hidden;
       opacity: 0;
