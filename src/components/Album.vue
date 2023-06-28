@@ -14,8 +14,8 @@
       :class="{ active: lovedItems(name, artist) }"
     ></button>
     <div class="album__info">
-      <p class="album__album">{{ name }}</p>
-      <p class="album__artist">
+      <p class="album__album ellipsis">{{ name }}</p>
+      <p class="album__artist ellipsis">
         {{ artist }}
       </p>
     </div>
@@ -72,16 +72,13 @@ const { lovedItems, handleItems, isImage } = useUserContent(
     font-size: 14px;
     font-weight: 700;
     line-height: 24px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     padding-right: 5px;
-    width: 100%;
   }
 
   &__artist {
     font-size: 14px;
     line-height: 24px;
+    padding-right: 5px;
   }
 }
 </style>
