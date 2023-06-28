@@ -1,7 +1,7 @@
 <template>
   <section class="albums">
     <h1>Favourite Albums</h1>
-    <div class="albums__body body">
+    <TransitionGroup name="fade" tag="div" class="albums__body body">
       <Album
         v-for="album in favouriteItems"
         :key="album.id"
@@ -11,7 +11,7 @@
         :artist="album.artist"
         v-lazy-load
       />
-    </div>
+    </TransitionGroup>
   </section>
 </template>
 <script setup>
@@ -24,16 +24,12 @@ const { favouriteItems } = useFavouriteContent("albums");
 .albums {
   &__body {
     display: grid;
-    //grid-template-columns: 1fr 1fr;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     :deep(.album) {
       visibility: hidden;
-      opacity: 0;
       &.active {
-        visibility: visible;
-        transition: visibility 0.3s linear, opacity 0.3s linear;
-        opacity: 1;
+        animation: show-favourite linear 0.3s forwards;
       }
     }
     @media screen and (max-width: $laptop-small) {

@@ -52,6 +52,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .tracks {
+  animation: show 0.7s forwards;
   min-height: 302px;
   @media screen and (max-width: $tablet) {
     min-height: 318px;

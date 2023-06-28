@@ -1,7 +1,7 @@
 <template>
   <section class="tracks">
     <h1>Favourite Tracks</h1>
-    <div class="tracks__body body">
+    <TransitionGroup name="fade" tag="div" class="tracks__body body">
       <Track
         v-for="track in favouriteItems"
         :key="track.id"
@@ -13,7 +13,7 @@
         v-lazy-load
       >
       </Track>
-    </div>
+    </TransitionGroup>
   </section>
 </template>
 <script setup>
@@ -27,11 +27,8 @@ const { favouriteItems } = useFavouriteContent("tracks");
   &__body {
     :deep(.track) {
       visibility: hidden;
-      opacity: 0;
       &.active {
-        visibility: visible;
-        transition: visibility 0.3s linear, opacity 0.3s linear;
-        opacity: 1;
+        animation: show-favourite linear 0.3s forwards;
       }
     }
   }

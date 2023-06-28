@@ -1,5 +1,5 @@
 <template>
-  <a :href="play" target="_blank" class="album">
+  <a v-if="name !== '(null)'"  :href="play" target="_blank" class="album">
     <img class="album__image" :src="isImage" alt="image" />
     <button
       @click.stop.prevent="

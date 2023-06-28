@@ -50,6 +50,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .albums {
+  animation: show 0.7s forwards;
   &__body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

@@ -78,3 +78,35 @@ a {
 .body {
   margin: 24px 0 0;
 }
+
+.fade-leave-active {
+  transform: translate(-100%, 0);
+  opacity: 0;
+  transition: all 0.7s;
+}
+
+.fade-move {
+  transition: transform 0.7s;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes show-favourite {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
