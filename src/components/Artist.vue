@@ -14,8 +14,8 @@
       :class="{ active: lovedItems(name) }"
     ></button>
     <div class="artist__info">
-      <p class="artist__name">{{ name }}</p>
-      <p class="artist__listeners">{{ listeners }}<span> listeners</span></p>
+      <p class="artist__name ellipsis">{{ name }}</p>
+      <p class="ellipsis">{{ listeners }}<span> listeners</span></p>
     </div>
   </a>
 </template>
@@ -41,7 +41,8 @@ const { lovedItems, handleItems, isImage } = useUserContent(
 
 <style lang="scss" scoped>
 .artist {
-  display: flex;
+  display: grid;
+  grid-template-columns: 70px calc(100% - 90px);
   gap: 15px;
   position: relative;
   @media screen and (max-width: $tablet) {
@@ -69,20 +70,13 @@ const { lovedItems, handleItems, isImage } = useUserContent(
   }
 
   &__info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0 5px 0 0;
   }
 
   &__name {
-    font-size: 14px;
     font-weight: 700;
-    line-height: 24px;
-  }
-
-  &__listeners {
-    font-size: 14px;
-    line-height: 24px;
   }
 }
 </style>

@@ -54,7 +54,7 @@ onMounted(() => {
 .artists {
   &__body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 50%);
     row-gap: 24px;
   }
 }
