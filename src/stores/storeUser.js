@@ -45,7 +45,6 @@ export const useStoreUser = defineStore("storeUser", {
             alert("Что-то пошло не так...");
         }
         this.loaded = false;
-
         return;
       }
 
@@ -111,12 +110,15 @@ export const useStoreUser = defineStore("storeUser", {
 
     fetchUser() {
       auth.onAuthStateChanged(async (user) => {
+        //юзер вышел / юзер не зарегистрирован
         if (user === null) {
           this.user = null;
           this.uid = null;
         } else {
+          //юзер зарегистрирован
           this.user = user;
           this.uid = auth.currentUser.uid;
+          //для входа по логину
           if (router.isReady() && router.currentRoute.value.path === "/login") {
             router.push("/");
           }
@@ -128,8 +130,13 @@ export const useStoreUser = defineStore("storeUser", {
     getLoaded: (state) => {
       return state.loaded;
     },
+
     getAccessToken: (state) => {
       return state.accessToken;
+    },
+
+    getUid: (state) => {
+      return state.uid;
     },
   },
 });
