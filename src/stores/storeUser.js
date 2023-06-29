@@ -16,52 +16,48 @@ export const useStoreUser = defineStore("storeUser", {
       user: null,
       uid: null,
       accessToken: localStorage.getItem("accessToken") || null,
-      //userLoaded: false,
       loaded: false,
+      errorCode: null,
     };
   },
   actions: {
     async register(details) {
-      //this.userLoaded = false;
       this.loaded = true;
       const { email, password } = details;
       try {
         await createUserWithEmailAndPassword(auth, email, password);
+        const authCurrentUser = auth.currentUser;
+        const userUid = authCurrentUser.uid;
+        const accessToken = authCurrentUser.accessToken;
+
+        const { addCollection } = useStoreMusic();
+        addCollection(userUid);
+
+        this.user = authCurrentUser;
+        this.uid = userUid;
+        this.accessToken = accessToken;
+        this.loaded = false;
+        localStorage.setItem("accessToken", accessToken);
+        router.push("/");
       } catch (error) {
         switch (error.code) {
           case "auth/email-already-in-use":
-            alert("Email уже используется");
+            this.errorCode = "Email уже используется";
             break;
           case "auth/invalid-email":
-            alert("Некорректный Email");
+            this.errorCode = "Некорректный Email";
             break;
           case "auth/operation-not-allowed":
-            alert("Операция не разрешена");
+            this.errorCode = "Операция не разрешена";
             break;
           case "auth/weak-password":
-            alert("Ненадежный пароль");
+            this.errorCode = "Ненадежный пароль";
             break;
           default:
-            alert("Что-то пошло не так...");
+            this.errorCode = "Что-то пошло не так...";
         }
         this.loaded = false;
-        return;
       }
-
-      const authCurrentUser = auth.currentUser;
-      const userUid = authCurrentUser.uid;
-      const accessToken = authCurrentUser.accessToken;
-
-      const { addCollection } = useStoreMusic();
-      addCollection(userUid);
-
-      this.user = authCurrentUser;
-      this.uid = userUid;
-      this.accessToken = accessToken;
-      //this.userLoaded = true;
-      this.loaded = false;
-      localStorage.setItem("accessToken", accessToken);
-      router.push("/");
     },
 
     async login(details) {
@@ -69,28 +65,26 @@ export const useStoreUser = defineStore("storeUser", {
       const { email, password } = details;
       try {
         await signInWithEmailAndPassword(auth, email, password);
+        if (!localStorage.getItem("accessToken")) {
+          localStorage.setItem("accessToken", auth.currentUser.accessToken);
+        }
+        this.user = auth.currentUser;
+        this.accessToken = auth.currentUser.accessToken;
+        this.loaded = false;
+        router.push("/");
       } catch (error) {
         switch (error.code) {
           case "auth/user-not-found":
-            alert("Пользователь не найден");
+            this.errorCode = "Пользователь не найден";
             break;
           case "auth/wrong-password":
-            alert("Неверный пароль или логин");
+            this.errorCode = "Неверный пароль или логин";
             break;
           default:
-            alert("Что-то пошло не так...");
+            this.errorCode = "Что-то пошло не так...";
         }
         this.loaded = false;
-        return;
       }
-
-      if (!localStorage.getItem("accessToken")) {
-        localStorage.setItem("accessToken", auth.currentUser.accessToken);
-      }
-      this.user = auth.currentUser;
-      this.accessToken = auth.currentUser.accessToken;
-      this.loaded = false;
-      router.push("/");
     },
 
     async logout() {
@@ -106,6 +100,10 @@ export const useStoreUser = defineStore("storeUser", {
       resetData();
       resetStore();
       router.push("/login");
+    },
+
+    clearErrorCode() {
+      this.errorCode = null;
     },
 
     fetchUser() {
@@ -137,6 +135,10 @@ export const useStoreUser = defineStore("storeUser", {
 
     getUid: (state) => {
       return state.uid;
+    },
+
+    getErrorCode: (state) => {
+      return state.errorCode;
     },
   },
 });

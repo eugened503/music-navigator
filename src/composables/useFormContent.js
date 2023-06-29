@@ -4,8 +4,14 @@ import useVuelidate from "@vuelidate/core";
 import { storeToRefs } from "pinia";
 import { required, minLength, helpers, email } from "@vuelidate/validators";
 
-export default function useFormContent(action, form) {
-  const { getLoaded } = storeToRefs(useStoreUser());
+export default function useFormContent(action) {
+  const { getLoaded, getErrorCode } = storeToRefs(useStoreUser());
+
+  const form = reactive({
+    email: "",
+    password: "",
+  });
+
   const rules = computed(() => ({
     email: {
       $autoDirty: true,
@@ -30,5 +36,5 @@ export default function useFormContent(action, form) {
     action(form);
   };
 
-  return { getLoaded, submitForm, v$ };
+  return { form, getLoaded, getErrorCode, submitForm, v$ };
 }

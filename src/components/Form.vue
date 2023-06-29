@@ -8,6 +8,7 @@
         v-model="form.email"
         name="email"
         autocomplete="on"
+        :disabled="getLoaded || getErrorCode"
       />
       <div class="form__errors">
         <p
@@ -24,6 +25,7 @@
         v-model="form.password"
         name="password"
         autocomplete="on"
+        :disabled="getLoaded || getErrorCode"
       />
       <div class="form__errors height">
         <p
@@ -34,7 +36,7 @@
           {{ error.$message }}
         </p>
       </div>
-      <button class="button" :disabled="getLoaded" type="submit">
+      <button class="button" :disabled="getLoaded || getErrorCode" type="submit">
         {{ nameButton }}
       </button>
       <p class="form__footer">
@@ -48,7 +50,6 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
 import useFormContent from "../composables/useFormContent";
 
 const props = defineProps({
@@ -60,12 +61,7 @@ const props = defineProps({
   action: Function,
 });
 
-const form = reactive({
-  email: "",
-  password: "",
-});
-
-const { getLoaded, submitForm, v$ } = useFormContent(props.action, form);
+const { form, getLoaded, getErrorCode, submitForm, v$ } = useFormContent(props.action);
 </script>
 
 <style lang="scss" scoped>
