@@ -10,6 +10,7 @@ export const useStoreAPI = defineStore("storeAPI", {
       albums: [],
       artists: [],
       error: null,
+      loaded: false,
       trackLoaded: false,
       albumLoaded: false,
       artistLoaded: false,
@@ -22,53 +23,59 @@ export const useStoreAPI = defineStore("storeAPI", {
   actions: {
     async trackSearch(track) {
       this.trackLoaded = false;
+      this.loaded = true;
       try {
         const res = await this.getRes("track", track);
 
         this.tracks = res.data?.results.trackmatches.track;
         this.trackRequest = track;
-        this.getCurrentRequest(track);
+        this.setCurrentRequest(track);
       } catch (error) {
         this.error = error.response?.data.message;
         console.log(error);
       }
 
       this.trackLoaded = true;
+      this.loaded = false;
     },
 
     async albumSearch(album) {
       this.albumLoaded = false;
+      this.loaded = true;
       try {
         const res = await this.getRes("album", album);
 
         this.albums = res.data?.results.albummatches.album;
         this.albumRequest = album;
-        this.getCurrentRequest(album);
+        this.setCurrentRequest(album);
       } catch (error) {
         this.error = error.response?.data.message;
         console.log(error);
       }
 
       this.albumLoaded = true;
+      this.loaded = false;
     },
 
     async artistSearch(artist) {
       this.artistLoaded = false;
+      this.loaded = true;
       try {
         const res = await this.getRes("artist", artist);
 
         this.artists = res.data?.results.artistmatches.artist;
         this.artistRequest = artist;
-        this.getCurrentRequest(artist);
+        this.setCurrentRequest(artist);
       } catch (error) {
         this.error = error.response?.data.message;
         console.log(error);
       }
 
       this.artistLoaded = true;
+      this.loaded = false;
     },
 
-    getCurrentRequest(currentRequest) {
+    setCurrentRequest(currentRequest) {
       this.currentRequest = currentRequest;
     },
 
@@ -104,14 +111,55 @@ export const useStoreAPI = defineStore("storeAPI", {
   },
 
   getters: {
-    getTracksInfo: (state) => {
-      return state.tracks.map((track) => {
-        const item = {
-          artist: track.artist,
-          name: track.name,
-        };
-        return item;
-      });
+    getError: (state) => {
+      return state.error;
+    },
+
+    getCurrentRequest: (state) => {
+      return state.currentRequest;
+    },
+
+    getLoaded: (state) => {
+      return state.loaded;
+    },
+
+    //Tracks
+    getTracks: (state) => {
+      return state.tracks;
+    },
+
+    getTrackLoaded: (state) => {
+      return state.trackLoaded;
+    },
+   
+    getTrackRequest: (state) => {
+      return state.trackRequest;
+    },
+
+    //Albums
+    getAlbums: (state) => {
+      return state.albums;
+    },
+    
+    getAlbumLoaded: (state) => {
+      return state.albumLoaded;
+    },
+   
+    getAlbumRequest: (state) => {
+      return state.albumRequest;
+    },
+
+    //Artists
+    getArtists: (state) => {
+      return state.artists;
+    },
+    
+    getArtistLoaded: (state) => {
+      return state.artistLoaded;
+    },
+   
+    getArtistRequest: (state) => {
+      return state.artistRequest;
     },
   },
   persist: {

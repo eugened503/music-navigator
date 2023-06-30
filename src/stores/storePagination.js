@@ -63,6 +63,20 @@ export const useStorePagination = defineStore("storePagination", {
       };
     },
   },
+
+  getters: {
+    getPage: (state) => {
+      return (pageName) => state.page[pageName];
+    },
+
+    getPerPage: (state) => {
+      return (pageName) => state.perPage[pageName];
+    },
+
+    getPages: (state) => {
+      return (pageName) => state.pages[pageName];
+    },
+  },
   persist: {
     enabled: true,
     strategies: [

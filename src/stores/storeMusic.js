@@ -1,25 +1,16 @@
 import _ from "lodash";
 import { defineStore } from "pinia";
 import {
-  getDocs,
-  getDoc,
   collection,
   onSnapshot,
-  addDoc,
   setDoc,
-  deleteDoc,
   updateDoc,
   doc,
-  query,
-  orderBy,
-  arrayUnion,
 } from "firebase/firestore";
-import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 
 const musicCollectionRef = collection(db, "music");
-const musicCollectionQuery = query(musicCollectionRef, orderBy("date", "desc"));
 
 export const useStoreMusic = defineStore("storeMusic", {
   state: () => {
@@ -30,31 +21,7 @@ export const useStoreMusic = defineStore("storeMusic", {
     };
   },
   actions: {
-    // async getMusic() {
-    //   this.musicLoaded = false;
-    //   onSnapshot(musicCollectionQuery, (querySnapshot) => {
-    //     const usersCollectionMusic = [];
-    //     querySnapshot.forEach((doc) => {
-    //       const musicItem = {
-    //         id: doc.id,
-    //         uid: doc.data().uid,
-    //         music: doc.data().music,
-    //       };
-    //       usersCollectionMusic.push(musicItem);
-    //     });
-    //     this.usersCollectionMusic = usersCollectionMusic;
-    //     this.musicLoaded = true;
-    //   });
-    // },
-
     async addCollection(userUid) {
-      // const newMusicAdded = await addDoc(musicCollectionRef, {
-      //   date: Date.now(),
-      //   uid: userUid,
-      //   music: { tracks: [], albums: [], artists: [] },
-      // });
-
-      //this.musicId = newMusicAdded.id;
       await setDoc(doc(musicCollectionRef, userUid), {
         date: Date.now(),
         uid: userUid,
@@ -108,17 +75,6 @@ export const useStoreMusic = defineStore("storeMusic", {
     },
 
     async getElementId(userUid) {
-      //   const docRef = doc(musicCollectionRef, userId);
-      //   try {
-      //     const docSnap = await getDoc(docRef);
-      //     if (docSnap.exists()) {
-      //       console.log(docSnap.data());
-      //     } else {
-      //       console.log("Document does not exist");
-      //     }
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
       this.musicLoaded = false;
       onSnapshot(doc(musicCollectionRef, userUid), (doc) => {
         this.music = doc.data().music;
@@ -133,14 +89,10 @@ export const useStoreMusic = defineStore("storeMusic", {
     },
   },
   getters: {
-    // getUserMusic: (state) => (uid) => {
-    //   return state.usersCollectionMusic.find(
-    //     (collection) => collection.uid === uid
-    //   );
-    // },
     getMusic: (state) => {
       return state.music;
     },
+
     getUid: (state) => {
       return state.uid;
     },
