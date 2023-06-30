@@ -12,10 +12,10 @@
         :listeners="artist.listeners"
       />
     </div>
-    <h2 v-if="artistLoaded && artists.length === 0 && !error">
+    <h2 v-if="getArtistLoaded && getArtists.length === 0 && !getError">
       No artists found
     </h2>
-    <h2 v-if="error">{{ error }}</h2>
+    <h2 v-if="getError">{{ getError }}</h2>
   </section>
   <Pagination
     @paginationClick="getPageNumber"
@@ -24,28 +24,35 @@
     :pages="pages"
     :page="page"
   />
+  <Loader v-if="getLoaded"></Loader>
 </template>
 <script setup>
-import { computed, onMounted } from "vue";
+import { onMounted } from "vue";
 import SearchForm from "../components/SearchForm.vue";
 import Artist from "../components/Artist.vue";
 import { useStoreAPI } from "../stores/storeAPI";
 import Pagination from "../components/Pagination.vue";
+import Loader from "../components/Loader.vue";
 import useUserPagination from "../composables/useUserPagination";
+import { storeToRefs } from "pinia";
 
-const { $state, artistSearch } = useStoreAPI();
-const currentRequest = computed(() => $state.currentRequest);
-const artistRequest = computed(() => $state.artistRequest);
-const artists = computed(() => $state.artists);
-const error = computed(() => $state.error);
-const artistLoaded = computed(() => $state.artistLoaded);
+const {
+  getArtists,
+  getArtistLoaded,
+  getError,
+  getCurrentRequest,
+  getArtistRequest,
+  getLoaded,
+} = storeToRefs(useStoreAPI());
+
+const { artistSearch } = useStoreAPI();
 
 const { displayedItems, pages, page, getPageNumber, getNextPage, getPrevPage } =
-  useUserPagination(artists, "artists");
+  useUserPagination(getArtists, "artists");
 
 onMounted(() => {
-  if (currentRequest.value && currentRequest.value !== artistRequest.value) {
-    artistSearch(currentRequest.value);
+  if (getCurrentRequest.value && getCurrentRequest.value !== getArtistRequest.value) {
+    artistSearch(getCurrentRequest.value);
   }
 });
 </script>

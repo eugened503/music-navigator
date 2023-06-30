@@ -14,8 +14,8 @@
       >
       </Track>
     </div>
-    <h2 v-if="trackLoaded && tracks.length === 0 && !error">No tracks found</h2>
-    <h2 v-if="error">{{ error }}</h2>
+    <h2 v-if="getTrackLoaded && getTracks.length === 0 && !getError">No tracks found</h2>
+    <h2 v-if="getError">{{ getError }}</h2>
   </section>
   <Pagination
     @paginationClick="getPageNumber"
@@ -24,28 +24,35 @@
     :pages="pages"
     :page="page"
   />
+  <Loader v-if="getLoaded"></Loader>
 </template>
 <script setup>
-import { computed, onMounted } from "vue";
+import { onMounted } from "vue";
 import Track from "./Track.vue";
 import SearchForm from "../components/SearchForm.vue";
 import Pagination from "../components/Pagination.vue";
+import Loader from "../components/Loader.vue";
 import { useStoreAPI } from "../stores/storeAPI";
 import useUserPagination from "../composables/useUserPagination";
+import { storeToRefs } from "pinia";
 
-const { $state, trackSearch } = useStoreAPI();
-const tracks = computed(() => $state.tracks);
-const trackLoaded = computed(() => $state.trackLoaded);
-const error = computed(() => $state.error);
-const currentRequest = computed(() => $state.currentRequest);
-const trackRequest = computed(() => $state.trackRequest);
+const {
+  getTracks,
+  getTrackLoaded,
+  getError,
+  getCurrentRequest,
+  getTrackRequest,
+  getLoaded
+} = storeToRefs(useStoreAPI());
+
+const { trackSearch } = useStoreAPI();
 
 const { displayedItems, pages, page, getPageNumber, getNextPage, getPrevPage } =
-  useUserPagination(tracks, "tracks");
+  useUserPagination(getTracks, "tracks");
 
 onMounted(() => {
-  if (currentRequest.value && currentRequest.value !== trackRequest.value) {
-    trackSearch(currentRequest.value);
+  if (getCurrentRequest.value && getCurrentRequest.value !== getTrackRequest.value) {
+    trackSearch(getCurrentRequest.value);
   }
 });
 </script>
