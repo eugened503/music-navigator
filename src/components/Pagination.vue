@@ -58,7 +58,7 @@ const handlePrevPage = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 34px;
+    max-width: 34px;
     height: 24px;
     border: 1px solid $clr-smog;
     transition: background-color 0.3s;
