@@ -5,7 +5,7 @@
       <Artist
         v-for="artist in favouriteItems"
         :key="artist.id"
-        :play="artist.url"
+        :play="artist.play"
         :image="artist.image"
         :name="artist.name"
         :listeners="artist.listeners"

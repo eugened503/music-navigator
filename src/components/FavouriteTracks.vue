@@ -8,7 +8,7 @@
         :artist="track.artist"
         :name="track.name"
         :image="track.image"
-        :play="track.url"
+        :play="track.play"
         :listeners="track.listeners"
         v-lazy-load
       >

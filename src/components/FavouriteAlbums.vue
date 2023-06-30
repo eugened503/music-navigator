@@ -5,7 +5,7 @@
       <Album
         v-for="album in favouriteItems"
         :key="album.id"
-        :play="album.url"
+        :play="album.play"
         :image="album.image"
         :name="album.name"
         :artist="album.artist"
