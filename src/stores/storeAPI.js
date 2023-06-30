@@ -105,7 +105,7 @@ export const useStoreAPI = defineStore("storeAPI", {
           "&api_key=" +
           apiKey +
           "&format=json" +
-          "&limit=15"
+          "&limit=30"
       );
     },
   },
