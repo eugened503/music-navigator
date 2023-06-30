@@ -3,9 +3,9 @@ import { useStorePagination } from "../stores/storePagination";
 
 export default function useUserPagination(currentItems, pageName) {
   const store = useStorePagination();
-  const page = computed(() => store.$state.page[pageName]);
-  const perPage = computed(() => store.$state.perPage[pageName]);
-  const pages = computed(() => store.$state.pages[pageName]);
+  const page = computed(() => store.getPage(pageName));
+  const perPage = computed(() => store.getPerPage(pageName));
+  const pages = computed(() => store.getPages(pageName));
 
   const paginate = (items) => {
     const pageValue = page.value;
@@ -26,7 +26,6 @@ export default function useUserPagination(currentItems, pageName) {
     }
   };
 
-  
   const getPageNumber = (pageNumber) => {
     store.getPageNumber(pageNumber, pageName);
   };
@@ -40,7 +39,7 @@ export default function useUserPagination(currentItems, pageName) {
   };
 
   watch(currentItems, setPages);
-  
+
   return {
     displayedItems,
     pages,
