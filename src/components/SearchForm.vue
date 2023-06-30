@@ -19,17 +19,25 @@
 <script setup>
 import { computed } from "vue";
 import { useStoreAPI } from "../stores/storeAPI";
-const { trackSearch, albumSearch, artistSearch, $state, getCurrentRequest } =
-  useStoreAPI();
+import { storeToRefs } from "pinia";
+const {
+  trackSearch,
+  albumSearch,
+  artistSearch,
+  setCurrentRequest,
+} = useStoreAPI();
 
 const props = defineProps({
   requestName: String,
 });
 
+const { getCurrentRequest } = storeToRefs(useStoreAPI());
+
 const currentRequest = computed({
-  get: () => $state.currentRequest,
-  set: (val) => getCurrentRequest(val),
+  get: () => getCurrentRequest.value,
+  set: (val) => setCurrentRequest(val),
 });
+
 
 const search = (currentRequest) => {
   switch (props.requestName) {
