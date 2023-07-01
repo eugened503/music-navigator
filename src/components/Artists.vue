@@ -60,6 +60,10 @@ onMounted(() => {
 <style lang="scss" scoped>
 .artists {
   animation: show 0.7s forwards;
+  min-height: 218px;
+  @media screen and (max-width: $tablet) {
+    min-height: 322px;
+  }
   &__body {
     display: grid;
     grid-template-columns: repeat(2, 50%);
