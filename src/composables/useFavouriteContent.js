@@ -4,9 +4,7 @@ import { storeToRefs } from "pinia";
 
 export default function useFavouriteContent(name) {
   const { getMusic } = storeToRefs(useStoreMusic());
-
-  const music = computed(() => getMusic.value);
-  const favouriteItems = computed(() => music.value[name]);
+  const favouriteItems = computed(() => getMusic.value[name]);
 
   return { favouriteItems };
 }
