@@ -1,7 +1,14 @@
-# Vue 3 + Vite
-
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# Pet-проект "Music navigator"
+![Alt-фото проекта](https://raw.githubusercontent.com/eugened503/music-navigator/main/src/assets/images/lead.png?token=GHSAT0AAAAAACDEFQP6G54KJLU57IW5RGJAZFAECRQ)
+## Описание проекта
+Проект является сервисом по поиску музыкальной информации. Введя в поисковую строку ключевое слово, пользователь может получить информацию о треках, альбомах и артистах. Данную информацию пользователь может сохранять на странице “Favourite”
+Проект состоит из двух страниц: главной страницы “Search” и страницы “Favourite” для зарегистрированного пользователя.
+## Cтек
++ Vite + Vue
++ Pinia
++ Vue-router
++ Vuelidate
++ SCSS
++ Axios
++ Firebase
++ Lodash
