@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-const baseUrl = "http://ws.audioscrobbler.com/2.0";
+const baseUrl = "https://ws.audioscrobbler.com/2.0";
 const apiKey = "bb0926934a9df6d160484c38b4293fca";
 import axios from "axios";
 
