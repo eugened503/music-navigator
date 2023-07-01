@@ -89,10 +89,7 @@ export const useStoreUser = defineStore("storeUser", {
 
     async logout() {
       await signOut(auth);
-      //this.user = null;
-      //this.uid = null;
       this.accessToken = null;
-      //localStorage.removeItem("accessToken");
       localStorage.clear()
       const { clearStore } = useStoreMusic();
       const { resetData } = useStoreAPI();
