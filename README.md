@@ -12,3 +12,5 @@
 + Axios
 + Firebase
 + Lodash
+## Деплой проекта
+[Проект находится здесь](https://deploy-music-navigator.vercel.app/)
