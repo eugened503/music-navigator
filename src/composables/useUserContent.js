@@ -1,4 +1,4 @@
-import { computed, watch, ref } from "vue";
+import { computed } from "vue";
 import { useStoreMusic } from "../stores/storeMusic";
 import { storeToRefs } from "pinia";
 import { getImage } from "../utils/getImage.js";
