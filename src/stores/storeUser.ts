@@ -2,14 +2,26 @@ import { defineStore } from 'pinia'
 import router from '../router'
 import { auth } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { useStoreMusic } from '../stores/storeMusic'
-import { useStoreAPI } from '../stores/storeAPI'
-import { useStorePagination } from '../stores/storePagination'
+import { useStoreMusic } from './storeMusic'
+import { useStoreAPI } from './storeAPI'
+import { useStorePagination } from './storePagination'
+
+type State = {
+  uid: string | null
+  accessToken: string | null
+  loaded: boolean
+  errorCode: string | null
+}
+
+type Details = {
+  email: string
+  password: string
+}
 
 export const useStoreUser = defineStore('storeUser', {
-  state: () => {
+  state: (): State => {
     return {
-      user: null,
+      //user: null,
       uid: null,
       accessToken: localStorage.getItem('accessToken') || null,
       loaded: false,
@@ -17,19 +29,19 @@ export const useStoreUser = defineStore('storeUser', {
     }
   },
   actions: {
-    async register(details) {
+    async register(details: Details): Promise<void> {
       this.loaded = true
       const { email, password } = details
       try {
         await createUserWithEmailAndPassword(auth, email, password)
-        const authCurrentUser = auth.currentUser
-        const userUid = authCurrentUser.uid
-        const accessToken = authCurrentUser.accessToken
+        const authCurrentUser = auth?.currentUser
+        const userUid = authCurrentUser?.uid
+        const accessToken = authCurrentUser?.accessToken
 
         const { addCollection } = useStoreMusic()
         addCollection(userUid)
 
-        this.user = authCurrentUser
+        //this.user = authCurrentUser
         this.uid = userUid
         this.accessToken = accessToken
         this.loaded = false
@@ -56,7 +68,7 @@ export const useStoreUser = defineStore('storeUser', {
       }
     },
 
-    async login(details) {
+    async login(details: Details): Promise<void> {
       this.loaded = true
       const { email, password } = details
       try {
@@ -64,7 +76,7 @@ export const useStoreUser = defineStore('storeUser', {
         if (!localStorage.getItem('accessToken')) {
           localStorage.setItem('accessToken', auth.currentUser.accessToken)
         }
-        this.user = auth.currentUser
+        //this.user = auth.currentUser
         this.accessToken = auth.currentUser.accessToken
         this.loaded = false
         router.push('/')
@@ -83,7 +95,7 @@ export const useStoreUser = defineStore('storeUser', {
       }
     },
 
-    async logout() {
+    async logout(): Promise<void> {
       await signOut(auth)
       this.accessToken = null
       localStorage.clear()
@@ -96,19 +108,19 @@ export const useStoreUser = defineStore('storeUser', {
       router.push('/login')
     },
 
-    clearErrorCode() {
+    clearErrorCode(): void {
       this.errorCode = null
     },
 
-    fetchUser() {
+    fetchUser(): Promise<void> {
       auth.onAuthStateChanged(async (user) => {
         //юзер вышел / юзер не зарегистрирован
         if (user === null) {
-          this.user = null
+          //this.user = null
           this.uid = null
         } else {
           //юзер зарегистрирован
-          this.user = user
+          //this.user = user
           this.uid = auth.currentUser.uid
           //для входа по логину
           if (router.isReady() && router.currentRoute.value.path === '/login') {
@@ -119,19 +131,19 @@ export const useStoreUser = defineStore('storeUser', {
     }
   },
   getters: {
-    getLoaded: (state) => {
+    getLoaded: (state: State): boolean => {
       return state.loaded
     },
 
-    getAccessToken: (state) => {
+    getAccessToken: (state: State): string | null => {
       return state.accessToken
     },
 
-    getUid: (state) => {
+    getUid: (state: State): string | null => {
       return state.uid
     },
 
-    getErrorCode: (state) => {
+    getErrorCode: (state: State): string | null => {
       return state.errorCode
     }
   }
