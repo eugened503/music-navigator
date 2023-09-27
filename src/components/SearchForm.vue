@@ -9,51 +9,41 @@
     />
     <button class="form__reset" type="reset"></button>
     <span>|</span>
-    <button
-      :disabled="!currentRequest"
-      class="form__submit"
-      type="submit"
-    ></button>
+    <button :disabled="!currentRequest" class="form__submit" type="submit"></button>
   </form>
 </template>
 <script setup>
-import { computed } from "vue";
-import { useStoreAPI } from "../stores/storeAPI";
-import { storeToRefs } from "pinia";
-const {
-  trackSearch,
-  albumSearch,
-  artistSearch,
-  setCurrentRequest,
-} = useStoreAPI();
+import { computed } from 'vue'
+import { useStoreAPI } from '../stores/storeAPI'
+import { storeToRefs } from 'pinia'
+const { trackSearch, albumSearch, artistSearch, setCurrentRequest } = useStoreAPI()
 
 const props = defineProps({
-  requestName: String,
-});
+  requestName: String
+})
 
-const { getCurrentRequest } = storeToRefs(useStoreAPI());
+const { getCurrentRequest } = storeToRefs(useStoreAPI())
 
 const currentRequest = computed({
   get: () => getCurrentRequest.value,
-  set: (val) => setCurrentRequest(val),
-});
-
+  set: (val) => setCurrentRequest(val)
+})
 
 const search = (currentRequest) => {
   switch (props.requestName) {
-    case "track":
-      trackSearch(currentRequest);
-      break;
-    case "album":
-      albumSearch(currentRequest);
-      break;
-    case "artist":
-      artistSearch(currentRequest);
-      break;
+    case 'track':
+      trackSearch(currentRequest)
+      break
+    case 'album':
+      albumSearch(currentRequest)
+      break
+    case 'artist':
+      artistSearch(currentRequest)
+      break
     default:
-      console.log("Неизвестное значение");
+      console.log('Неизвестное значение')
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

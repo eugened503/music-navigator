@@ -4,21 +4,9 @@
       <img class="header__vinyl" src="../assets/images/vinyl.svg" alt="vinyl" />
     </router-link>
     <div class="player">
-      <img
-        class="player__item"
-        src="../assets/images/player_start.svg"
-        alt="start"
-      />
-      <img
-        class="player__item"
-        src="../assets/images/player_play.svg"
-        alt="play"
-      />
-      <img
-        class="player__item"
-        src="../assets/images/player_end.svg"
-        alt="end"
-      />
+      <img class="player__item" src="../assets/images/player_start.svg" alt="start" />
+      <img class="player__item" src="../assets/images/player_play.svg" alt="play" />
+      <img class="player__item" src="../assets/images/player_end.svg" alt="end" />
     </div>
     <div class="header__logo">
       <p>Find Your Music</p>
@@ -30,15 +18,10 @@
         <button class="button" @click="logout">Logout</button>
       </div>
       <div v-else class="navigator__buttons">
-        <router-link
-          v-if="rootRoute === '/login'"
-          class="button"
-          :to="{ name: 'Register' }"
+        <router-link v-if="rootRoute === '/login'" class="button" :to="{ name: 'Register' }"
           >Sign Up</router-link
         >
-        <router-link v-else class="button" :to="{ name: 'Login' }"
-          >Log In</router-link
-        >
+        <router-link v-else class="button" :to="{ name: 'Login' }">Log In</router-link>
       </div>
     </div>
   </header>
@@ -46,15 +29,15 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import { useStoreUser } from "../stores/storeUser";
-import { computed } from "vue";
-import { storeToRefs } from "pinia";
+import { useRoute } from 'vue-router'
+import { useStoreUser } from '../stores/storeUser'
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 
-const route = useRoute();
-const rootRoute = computed(() => route.matched[0]?.path);
-const { getAccessToken } = storeToRefs(useStoreUser());
-const { logout } = useStoreUser();
+const route = useRoute()
+const rootRoute = computed(() => route.matched[0]?.path)
+const { getAccessToken } = storeToRefs(useStoreUser())
+const { logout } = useStoreUser()
 </script>
 
 <style lang="scss" scoped>
@@ -132,7 +115,7 @@ const { logout } = useStoreUser();
             height: 2px;
             width: 100%;
             background: $clr-carrot;
-            content: "";
+            content: '';
             bottom: -4px;
             left: 0;
           }

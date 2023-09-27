@@ -7,7 +7,7 @@
           listeners,
           name,
           image,
-          play,
+          play
         })
       "
       class="artist__image loved"
@@ -20,23 +20,23 @@
   </a>
 </template>
 <script setup>
-import { toRef } from "vue";
-import { useStoreMusic } from "../stores/storeMusic";
-import useUserContent from "../composables/useUserContent";
+import { toRef } from 'vue'
+import { useStoreMusic } from '../stores/storeMusic'
+import useUserContent from '../composables/useUserContent'
 const props = defineProps({
   play: String,
   image: Object,
   name: String,
-  listeners: String,
-});
-const imgRef = toRef(props, "image");
-const { addArtists, deleteArtists } = useStoreMusic();
+  listeners: String
+})
+const imgRef = toRef(props, 'image')
+const { addArtists, deleteArtists } = useStoreMusic()
 const { lovedItems, handleItems, isImage } = useUserContent(
-  "artists",
+  'artists',
   addArtists,
   deleteArtists,
   imgRef
-);
+)
 </script>
 
 <style lang="scss" scoped>

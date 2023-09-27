@@ -16,8 +16,8 @@
 
 <script setup>
 const props = defineProps({
-  showModal: Boolean,
-});
+  showModal: Boolean
+})
 </script>
 
 <style lang="scss" scoped>

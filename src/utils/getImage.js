@@ -1,9 +1,9 @@
 const getImage = (image) => {
-  const values = Object.values(image);
+  const values = Object.values(image)
   return (
     values.find((value) => value.length > 10) ||
-    new URL("../assets/images/image.svg", import.meta.url).href
-  );
-};
+    new URL('../assets/images/image.svg', import.meta.url).href
+  )
+}
 
-export { getImage };
+export { getImage }

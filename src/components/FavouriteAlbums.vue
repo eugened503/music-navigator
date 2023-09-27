@@ -15,9 +15,9 @@
   </section>
 </template>
 <script setup>
-import Album from "../components/Album.vue";
-import useFavouriteContent from "../composables/useFavouriteContent";
-const { favouriteItems } = useFavouriteContent("albums");
+import Album from '../components/Album.vue'
+import useFavouriteContent from '../composables/useFavouriteContent'
+const { favouriteItems } = useFavouriteContent('albums')
 </script>
 
 <style lang="scss" scoped>

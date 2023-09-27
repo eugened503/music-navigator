@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
-const baseUrl = "https://ws.audioscrobbler.com/2.0";
-const apiKey = "bb0926934a9df6d160484c38b4293fca";
-import axios from "axios";
+import { defineStore } from 'pinia'
+const baseUrl = 'https://ws.audioscrobbler.com/2.0'
+const apiKey = 'bb0926934a9df6d160484c38b4293fca'
+import axios from 'axios'
 
 type Track = {
   artist: string
@@ -45,10 +45,9 @@ type State = {
   trackRequest: string | null
   albumRequest: string | null
   artistRequest: string | null
-
 }
 
-export const useStoreAPI = defineStore("storeAPI", {
+export const useStoreAPI = defineStore('storeAPI', {
   state: (): State => {
     return {
       tracks: [],
@@ -62,151 +61,151 @@ export const useStoreAPI = defineStore("storeAPI", {
       currentRequest: null,
       trackRequest: null,
       albumRequest: null,
-      artistRequest: null,
-    };
+      artistRequest: null
+    }
   },
   actions: {
     async trackSearch(track: string): Promise<void> {
-      this.trackLoaded = false;
-      this.loaded = true;
+      this.trackLoaded = false
+      this.loaded = true
       try {
-        const res = await this.getRes("track", track);
+        const res = await this.getRes('track', track)
 
-        this.tracks = res.data?.results.trackmatches.track;
-        this.trackRequest = track;
-        this.setCurrentRequest(track);
+        this.tracks = res.data?.results.trackmatches.track
+        this.trackRequest = track
+        this.setCurrentRequest(track)
       } catch (error) {
-        this.error = error.response?.data.message;
-        console.log(error);
+        this.error = error.response?.data.message
+        console.log(error)
       }
 
-      this.trackLoaded = true;
-      this.loaded = false;
+      this.trackLoaded = true
+      this.loaded = false
     },
 
     async albumSearch(album: string): Promise<void> {
-      this.albumLoaded = false;
-      this.loaded = true;
+      this.albumLoaded = false
+      this.loaded = true
       try {
-        const res = await this.getRes("album", album);
+        const res = await this.getRes('album', album)
 
-        this.albums = res.data?.results.albummatches.album;
-        this.albumRequest = album;
-        this.setCurrentRequest(album);
+        this.albums = res.data?.results.albummatches.album
+        this.albumRequest = album
+        this.setCurrentRequest(album)
       } catch (error) {
-        this.error = error.response?.data.message;
-        console.log(error);
+        this.error = error.response?.data.message
+        console.log(error)
       }
 
-      this.albumLoaded = true;
-      this.loaded = false;
+      this.albumLoaded = true
+      this.loaded = false
     },
 
     async artistSearch(artist: string): Promise<void> {
-      this.artistLoaded = false;
-      this.loaded = true;
+      this.artistLoaded = false
+      this.loaded = true
       try {
-        const res = await this.getRes("artist", artist);
+        const res = await this.getRes('artist', artist)
 
-        this.artists = res.data?.results.artistmatches.artist;
-        this.artistRequest = artist;
-        this.setCurrentRequest(artist);
+        this.artists = res.data?.results.artistmatches.artist
+        this.artistRequest = artist
+        this.setCurrentRequest(artist)
       } catch (error) {
-        this.error = error.response?.data.message;
-        console.log(error);
+        this.error = error.response?.data.message
+        console.log(error)
       }
 
-      this.artistLoaded = true;
-      this.loaded = false;
+      this.artistLoaded = true
+      this.loaded = false
     },
 
     setCurrentRequest(currentRequest: string): void {
-      this.currentRequest = currentRequest;
+      this.currentRequest = currentRequest
     },
 
     resetData(): void {
-      this.tracks = [];
-      this.albums = [];
-      this.artists = [];
-      this.error = null;
-      this.trackLoaded = false;
-      this.albumLoaded = false;
-      this.artistLoaded = false;
-      this.currentRequest = null;
-      this.trackRequest = null;
-      this.albumRequest = null;
-      this.artistRequest = null;
+      this.tracks = []
+      this.albums = []
+      this.artists = []
+      this.error = null
+      this.trackLoaded = false
+      this.albumLoaded = false
+      this.artistLoaded = false
+      this.currentRequest = null
+      this.trackRequest = null
+      this.albumRequest = null
+      this.artistRequest = null
     },
 
     getRes(method: string, searchName: string): Promise<void> {
       return axios.get(
         baseUrl +
-        "/?method=" +
-        `${method}` +
-        ".search&" +
-        `${method}` +
-        "=" +
-        `${searchName}` +
-        "&api_key=" +
-        apiKey +
-        "&format=json" +
-        "&limit=30"
-      );
-    },
+          '/?method=' +
+          `${method}` +
+          '.search&' +
+          `${method}` +
+          '=' +
+          `${searchName}` +
+          '&api_key=' +
+          apiKey +
+          '&format=json' +
+          '&limit=30'
+      )
+    }
   },
 
   getters: {
     getError: (state: State): string | null => {
-      return state.error;
+      return state.error
     },
 
     getCurrentRequest: (state: State): string | null => {
-      return state.currentRequest;
+      return state.currentRequest
     },
 
     getLoaded: (state: State): boolean => {
-      return state.loaded;
+      return state.loaded
     },
 
     //Tracks
     getTracks: (state: State): Track[] => {
-      return state.tracks;
+      return state.tracks
     },
 
     getTrackLoaded: (state: State): boolean => {
-      return state.trackLoaded;
+      return state.trackLoaded
     },
 
     getTrackRequest: (state: State): string | null => {
-      return state.trackRequest;
+      return state.trackRequest
     },
 
     //Albums
     getAlbums: (state: State): Album[] => {
-      return state.albums;
+      return state.albums
     },
 
     getAlbumLoaded: (state: State): boolean => {
-      return state.albumLoaded;
+      return state.albumLoaded
     },
 
     getAlbumRequest: (state: State): string | null => {
-      return state.albumRequest;
+      return state.albumRequest
     },
 
     //Artists
     getArtists: (state: State): Artist[] => {
-      return state.artists;
+      return state.artists
     },
 
     getArtistLoaded: (state: State): boolean => {
-      return state.artistLoaded;
+      return state.artistLoaded
     },
 
     getArtistRequest: (state: State): string | null => {
-      return state.artistRequest;
-    },
-  },
+      return state.artistRequest
+    }
+  }
   // persist: {
   //   enabled: true,
   //   strategies: [
@@ -216,4 +215,4 @@ export const useStoreAPI = defineStore("storeAPI", {
   //     },
   //   ],
   // },
-});
+})

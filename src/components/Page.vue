@@ -6,7 +6,7 @@
   </main>
 </template>
 <script setup>
-import SearchNav from "./SearchNav.vue";
+import SearchNav from './SearchNav.vue'
 </script>
 
 <style lang="scss" scoped>

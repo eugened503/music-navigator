@@ -1,11 +1,6 @@
 <template>
   <div class="pagination">
-    <button
-      class="pagination__button"
-      type="button"
-      v-if="page != 1"
-      @click="handlePrevPage"
-    >
+    <button class="pagination__button" type="button" v-if="page != 1" @click="handlePrevPage">
       «
     </button>
     <button
@@ -32,21 +27,21 @@
 <script setup>
 const props = defineProps({
   pages: Array,
-  page: Number,
-});
+  page: Number
+})
 
-const emit = defineEmits(["paginationClick", "nextPage", "prevPage"]);
+const emit = defineEmits(['paginationClick', 'nextPage', 'prevPage'])
 const handlePageNumber = (pageNumber) => {
-  emit("paginationClick", pageNumber);
-};
+  emit('paginationClick', pageNumber)
+}
 
 const handleNextPage = () => {
-  emit("nextPage");
-};
+  emit('nextPage')
+}
 
 const handlePrevPage = () => {
-  emit("prevPage");
-};
+  emit('prevPage')
+}
 </script>
 
 <style lang="scss" scoped>

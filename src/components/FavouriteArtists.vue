@@ -15,10 +15,10 @@
   </section>
 </template>
 <script setup>
-import useFavouriteContent from "../composables/useFavouriteContent";
-import Artist from "./Artist.vue";
+import useFavouriteContent from '../composables/useFavouriteContent'
+import Artist from './Artist.vue'
 
-const { favouriteItems } = useFavouriteContent("artists");
+const { favouriteItems } = useFavouriteContent('artists')
 </script>
 
 <style lang="scss" scoped>

@@ -87,7 +87,7 @@
     }
 
     &:after {
-      content: " ";
+      content: ' ';
       display: block;
       position: absolute;
       top: 3px;

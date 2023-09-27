@@ -2,34 +2,27 @@
   <nav>
     <ul>
       <li>
-        <router-link :to="{ name: rootName + 'Artists' }" exact
-          >Artists</router-link
-        >
+        <router-link :to="{ name: rootName + 'Artists' }" exact>Artists</router-link>
       </li>
       <li>
-        <router-link :to="{ name: rootName + 'Albums' }" exact
-          >Albums</router-link
-        >
+        <router-link :to="{ name: rootName + 'Albums' }" exact>Albums</router-link>
       </li>
       <li>
-        <router-link :to="{ name: rootName + 'Tracks' }" exact
-          >Tracks</router-link
-        >
+        <router-link :to="{ name: rootName + 'Tracks' }" exact>Tracks</router-link>
       </li>
     </ul>
   </nav>
   <router-view />
 </template>
 <script setup>
-import { useRoute } from "vue-router";
-import { computed } from "vue";
-import _ from "lodash";
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+import _ from 'lodash'
 
-const route = useRoute();
+const route = useRoute()
 
-const rootRoute = computed(() => route.matched[0].path);
-const rootName = computed(() => _.upperFirst(rootRoute.value.slice(1)));
-
+const rootRoute = computed(() => route.matched[0].path)
+const rootName = computed(() => _.upperFirst(rootRoute.value.slice(1)))
 </script>
 
 <style lang="scss" scoped>
@@ -52,7 +45,7 @@ nav {
         height: 2px;
         width: 100%;
         background: #b90000;
-        content: "";
+        content: '';
         bottom: -1px;
         left: 0;
       }

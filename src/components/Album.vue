@@ -1,5 +1,5 @@
 <template>
-  <a v-if="name !== '(null)'"  :href="play" target="_blank" class="album">
+  <a v-if="name !== '(null)'" :href="play" target="_blank" class="album">
     <img class="album__image" :src="isImage" alt="image" />
     <button
       @click.stop.prevent="
@@ -7,7 +7,7 @@
           artist,
           name,
           image,
-          play,
+          play
         })
       "
       class="album__image loved"
@@ -22,23 +22,23 @@
   </a>
 </template>
 <script setup>
-import { toRef } from "vue";
-import { useStoreMusic } from "../stores/storeMusic";
-import useUserContent from "../composables/useUserContent";
+import { toRef } from 'vue'
+import { useStoreMusic } from '../stores/storeMusic'
+import useUserContent from '../composables/useUserContent'
 const props = defineProps({
   play: String,
   image: Object,
   name: String,
-  artist: String,
-});
-const imgRef = toRef(props, "image");
-const { addAlbums, deleteAlbums } = useStoreMusic();
+  artist: String
+})
+const imgRef = toRef(props, 'image')
+const { addAlbums, deleteAlbums } = useStoreMusic()
 const { lovedItems, handleItems, isImage } = useUserContent(
-  "albums",
+  'albums',
   addAlbums,
   deleteAlbums,
   imgRef
-);
+)
 </script>
 
 <style lang="scss" scoped>

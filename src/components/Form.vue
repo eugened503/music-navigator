@@ -11,11 +11,7 @@
         :disabled="getLoaded || getErrorCode"
       />
       <div class="form__errors">
-        <p
-          v-for="(error, index) of v$.email.$errors"
-          :key="index"
-          class="form__error"
-        >
+        <p v-for="(error, index) of v$.email.$errors" :key="index" class="form__error">
           {{ error.$message }}
         </p>
       </div>
@@ -28,11 +24,7 @@
         :disabled="getLoaded || getErrorCode"
       />
       <div class="form__errors height">
-        <p
-          v-for="(error, index) of v$.password.$errors"
-          :key="index"
-          class="form__error"
-        >
+        <p v-for="(error, index) of v$.password.$errors" :key="index" class="form__error">
           {{ error.$message }}
         </p>
       </div>
@@ -41,16 +33,14 @@
       </button>
       <p class="form__footer">
         {{ titleLink }}
-        <router-link :to="{ name: nameLink }"
-          >&nbsp;{{ subTitleLink }}</router-link
-        >
+        <router-link :to="{ name: nameLink }">&nbsp;{{ subTitleLink }}</router-link>
       </p>
     </form>
   </section>
 </template>
 
 <script setup>
-import useFormContent from "../composables/useFormContent";
+import useFormContent from '../composables/useFormContent'
 
 const props = defineProps({
   title: String,
@@ -58,10 +48,10 @@ const props = defineProps({
   titleLink: String,
   subTitleLink: String,
   nameButton: String,
-  action: Function,
-});
+  action: Function
+})
 
-const { form, getLoaded, getErrorCode, submitForm, v$ } = useFormContent(props.action);
+const { form, getLoaded, getErrorCode, submitForm, v$ } = useFormContent(props.action)
 </script>
 
 <style lang="scss" scoped>
@@ -113,19 +103,19 @@ section {
     outline: none;
     background: none;
 
-    &:not([type="submit"]) {
+    &:not([type='submit']) {
       opacity: 0.8;
       transition: 0.4s;
     }
 
-    &:focus:not([type="submit"]) {
+    &:focus:not([type='submit']) {
       opacity: 1;
     }
     &::placeholder {
       color: inherit;
     }
 
-    &:not([type="submit"]) {
+    &:not([type='submit']) {
       color: $clr-slate-grey;
       border-bottom: 2px solid $clr-slate-grey;
     }

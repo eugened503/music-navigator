@@ -27,34 +27,30 @@
   <Loader v-if="getLoaded"></Loader>
 </template>
 <script setup>
-import { onMounted } from "vue";
-import Track from "./Track.vue";
-import SearchForm from "../components/SearchForm.vue";
-import Pagination from "../components/Pagination.vue";
-import Loader from "../components/Loader.vue";
-import { useStoreAPI } from "../stores/storeAPI";
-import useUserPagination from "../composables/useUserPagination";
-import { storeToRefs } from "pinia";
+import { onMounted } from 'vue'
+import Track from './Track.vue'
+import SearchForm from '../components/SearchForm.vue'
+import Pagination from '../components/Pagination.vue'
+import Loader from '../components/Loader.vue'
+import { useStoreAPI } from '../stores/storeAPI'
+import useUserPagination from '../composables/useUserPagination'
+import { storeToRefs } from 'pinia'
 
-const {
+const { getTracks, getTrackLoaded, getError, getCurrentRequest, getTrackRequest, getLoaded } =
+  storeToRefs(useStoreAPI())
+
+const { trackSearch } = useStoreAPI()
+
+const { displayedItems, pages, page, getPageNumber, getNextPage, getPrevPage } = useUserPagination(
   getTracks,
-  getTrackLoaded,
-  getError,
-  getCurrentRequest,
-  getTrackRequest,
-  getLoaded
-} = storeToRefs(useStoreAPI());
-
-const { trackSearch } = useStoreAPI();
-
-const { displayedItems, pages, page, getPageNumber, getNextPage, getPrevPage } =
-  useUserPagination(getTracks, "tracks");
+  'tracks'
+)
 
 onMounted(() => {
   if (getCurrentRequest.value && getCurrentRequest.value !== getTrackRequest.value) {
-    trackSearch(getCurrentRequest.value);
+    trackSearch(getCurrentRequest.value)
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>
