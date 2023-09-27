@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { useStoreUser } from '../stores/storeUser'
-import Form from '../components/Form.vue'
+import { useStoreUser } from '@/stores/storeUser'
+import Form from '@/components/Form.vue'
 const { login } = useStoreUser()
 </script>

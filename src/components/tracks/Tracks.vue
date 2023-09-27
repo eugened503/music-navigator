@@ -29,11 +29,11 @@
 <script setup>
 import { onMounted } from 'vue'
 import Track from './Track.vue'
-import SearchForm from '../components/SearchForm.vue'
-import Pagination from '../components/Pagination.vue'
-import Loader from '../components/Loader.vue'
-import { useStoreAPI } from '../stores/storeAPI'
-import useUserPagination from '../composables/useUserPagination'
+import SearchForm from '@/components/SearchForm.vue'
+import Pagination from '@/components/Pagination.vue'
+import Loader from '@/components/Loader.vue'
+import { useStoreAPI } from '@/stores/storeAPI'
+import useUserPagination from '@/composables/useUserPagination'
 import { storeToRefs } from 'pinia'
 
 const { getTracks, getTrackLoaded, getError, getCurrentRequest, getTrackRequest, getLoaded } =

@@ -30,7 +30,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-import { useStoreUser } from '../stores/storeUser'
+import { useStoreUser } from '@/stores/storeUser'
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 

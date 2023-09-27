@@ -23,8 +23,8 @@
 </template>
 <script setup>
 import { toRef } from 'vue'
-import { useStoreMusic } from '../stores/storeMusic'
-import useUserContent from '../composables/useUserContent'
+import { useStoreMusic } from '@/stores/storeMusic'
+import useUserContent from '@/composables/useUserContent'
 const props = defineProps({
   play: String,
   image: Object,
@@ -53,12 +53,12 @@ const { lovedItems, handleItems, isImage } = useUserContent(
       right: 8px;
       height: 25px;
       width: 25px;
-      background-image: url(../assets/images/heart_white.svg);
+      background-image: url(@/assets/images/heart_white.svg);
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
       &.active {
-        background-image: url(../assets/images/heart_love.svg);
+        background-image: url(@/assets/images/heart_love.svg);
       }
     }
   }

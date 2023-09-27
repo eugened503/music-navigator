@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useStoreMusic } from '../stores/storeMusic'
+import { useStoreMusic } from '@/stores/storeMusic'
 import { storeToRefs } from 'pinia'
 
 export default function useFavouriteContent(name) {

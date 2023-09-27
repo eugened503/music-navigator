@@ -15,7 +15,7 @@
   </section>
 </template>
 <script setup>
-import useFavouriteContent from '../composables/useFavouriteContent'
+import useFavouriteContent from '@/composables/useFavouriteContent'
 import Artist from './Artist.vue'
 
 const { favouriteItems } = useFavouriteContent('artists')

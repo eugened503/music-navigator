@@ -1,7 +1,6 @@
 import { computed } from 'vue'
-import { useStoreMusic } from '../stores/storeMusic'
+import { useStoreMusic } from '@/stores/storeMusic'
 import { storeToRefs } from 'pinia'
-import { getImage } from '../utils/getImage.js'
 
 export default function useUserContent(currentName, addItems, deleteItems, imgRef) {
   const { getMusic, getUid } = storeToRefs(useStoreMusic())
@@ -9,6 +8,14 @@ export default function useUserContent(currentName, addItems, deleteItems, imgRe
   const uid = computed(() => getUid.value)
   const items = computed(() => music.value[currentName])
   const isImage = computed(() => getImage(imgRef.value))
+
+  const getImage = (image) => {
+    const values = Object.values(image)
+    return (
+      values.find((value) => value.length > 10) ||
+      new URL('../assets/images/image.svg', import.meta.url).href
+    )
+  }
 
   const handleItems = (obj) => {
     const loaded = lovedItems(obj.name, obj.artist)

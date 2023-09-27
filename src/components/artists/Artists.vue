@@ -26,12 +26,12 @@
 </template>
 <script setup>
 import { onMounted } from 'vue'
-import SearchForm from '../components/SearchForm.vue'
-import Artist from '../components/Artist.vue'
-import { useStoreAPI } from '../stores/storeAPI'
-import Pagination from '../components/Pagination.vue'
-import Loader from '../components/Loader.vue'
-import useUserPagination from '../composables/useUserPagination'
+import SearchForm from '@/components/SearchForm.vue'
+import Artist from './Artist.vue'
+import { useStoreAPI } from '@/stores/storeAPI'
+import Pagination from '@/components/Pagination.vue'
+import Loader from '@/components/Loader.vue'
+import useUserPagination from '@/composables/useUserPagination'
 import { storeToRefs } from 'pinia'
 
 const { getArtists, getArtistLoaded, getError, getCurrentRequest, getArtistRequest, getLoaded } =

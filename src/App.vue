@@ -14,13 +14,13 @@
 
 <script setup>
 import { onBeforeMount, watch, ref } from 'vue'
-import { useStoreMusic } from './stores/storeMusic'
-import { useStoreUser } from './stores/storeUser'
+import { useStoreMusic } from '@/stores/storeMusic'
+import { useStoreUser } from '@/stores/storeUser'
 import { storeToRefs } from 'pinia'
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
-import Loader from './components/Loader.vue'
-import Modal from './components/Modal.vue'
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import Loader from '@/components/Loader.vue'
+import Modal from '@/components/Modal.vue'
 
 const { fetchUser, clearErrorCode } = useStoreUser()
 const { getElementId } = useStoreMusic()

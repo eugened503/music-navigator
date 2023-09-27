@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import useFormContent from '../composables/useFormContent'
+import useFormContent from '@/composables/useFormContent'
 
 const props = defineProps({
   title: String,

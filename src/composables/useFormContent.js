@@ -1,5 +1,5 @@
 import { computed, reactive } from 'vue'
-import { useStoreUser } from '../stores/storeUser'
+import { useStoreUser } from '@/stores/storeUser'
 import useVuelidate from '@vuelidate/core'
 import { storeToRefs } from 'pinia'
 import { required, minLength, helpers, email } from '@vuelidate/validators'

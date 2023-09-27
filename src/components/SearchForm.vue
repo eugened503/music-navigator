@@ -14,7 +14,7 @@
 </template>
 <script setup>
 import { computed } from 'vue'
-import { useStoreAPI } from '../stores/storeAPI'
+import { useStoreAPI } from '@/stores/storeAPI'
 import { storeToRefs } from 'pinia'
 const { trackSearch, albumSearch, artistSearch, setCurrentRequest } = useStoreAPI()
 
