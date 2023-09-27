@@ -3,8 +3,53 @@ const baseUrl = "https://ws.audioscrobbler.com/2.0";
 const apiKey = "bb0926934a9df6d160484c38b4293fca";
 import axios from "axios";
 
+type Track = {
+  artist: string
+  image: string[]
+  listeners: string
+  mbid: string
+  name: string
+  streamable: string
+  url: string
+}
+
+type Album = {
+  artist: string
+  image: string[]
+  listeners: string
+  mbid: string
+  name: string
+  streamable: string
+  url: string
+}
+
+type Artist = {
+  image: string[]
+  listeners: string
+  mbid: string
+  name: string
+  streamable: string
+  url: string
+}
+
+type State = {
+  tracks: Track[]
+  albums: Album[]
+  artists: Artist[]
+  error: string | null
+  loaded: boolean
+  trackLoaded: boolean
+  albumLoaded: boolean
+  artistLoaded: boolean
+  currentRequest: string | null
+  trackRequest: string | null
+  albumRequest: string | null
+  artistRequest: string | null
+
+}
+
 export const useStoreAPI = defineStore("storeAPI", {
-  state: () => {
+  state: (): State => {
     return {
       tracks: [],
       albums: [],
@@ -21,7 +66,7 @@ export const useStoreAPI = defineStore("storeAPI", {
     };
   },
   actions: {
-    async trackSearch(track) {
+    async trackSearch(track: string): Promise<void> {
       this.trackLoaded = false;
       this.loaded = true;
       try {
@@ -39,7 +84,7 @@ export const useStoreAPI = defineStore("storeAPI", {
       this.loaded = false;
     },
 
-    async albumSearch(album) {
+    async albumSearch(album: string): Promise<void> {
       this.albumLoaded = false;
       this.loaded = true;
       try {
@@ -57,7 +102,7 @@ export const useStoreAPI = defineStore("storeAPI", {
       this.loaded = false;
     },
 
-    async artistSearch(artist) {
+    async artistSearch(artist: string): Promise<void> {
       this.artistLoaded = false;
       this.loaded = true;
       try {
@@ -75,11 +120,11 @@ export const useStoreAPI = defineStore("storeAPI", {
       this.loaded = false;
     },
 
-    setCurrentRequest(currentRequest) {
+    setCurrentRequest(currentRequest: string): void {
       this.currentRequest = currentRequest;
     },
 
-    resetData() {
+    resetData(): void {
       this.tracks = [];
       this.albums = [];
       this.artists = [];
@@ -93,82 +138,82 @@ export const useStoreAPI = defineStore("storeAPI", {
       this.artistRequest = null;
     },
 
-    getRes(method, searchName) {
+    getRes(method: string, searchName: string): Promise<void> {
       return axios.get(
         baseUrl +
-          "/?method=" +
-          `${method}` +
-          ".search&" +
-          `${method}` +
-          "=" +
-          `${searchName}` +
-          "&api_key=" +
-          apiKey +
-          "&format=json" +
-          "&limit=30"
+        "/?method=" +
+        `${method}` +
+        ".search&" +
+        `${method}` +
+        "=" +
+        `${searchName}` +
+        "&api_key=" +
+        apiKey +
+        "&format=json" +
+        "&limit=30"
       );
     },
   },
 
   getters: {
-    getError: (state) => {
+    getError: (state: State): string | null => {
       return state.error;
     },
 
-    getCurrentRequest: (state) => {
+    getCurrentRequest: (state: State): string | null => {
       return state.currentRequest;
     },
 
-    getLoaded: (state) => {
+    getLoaded: (state: State): boolean => {
       return state.loaded;
     },
 
     //Tracks
-    getTracks: (state) => {
+    getTracks: (state: State): Track[] => {
       return state.tracks;
     },
 
-    getTrackLoaded: (state) => {
+    getTrackLoaded: (state: State): boolean => {
       return state.trackLoaded;
     },
-   
-    getTrackRequest: (state) => {
+
+    getTrackRequest: (state: State): string | null => {
       return state.trackRequest;
     },
 
     //Albums
-    getAlbums: (state) => {
+    getAlbums: (state: State): Album[] => {
       return state.albums;
     },
-    
-    getAlbumLoaded: (state) => {
+
+    getAlbumLoaded: (state: State): boolean => {
       return state.albumLoaded;
     },
-   
-    getAlbumRequest: (state) => {
+
+    getAlbumRequest: (state: State): string | null => {
       return state.albumRequest;
     },
 
     //Artists
-    getArtists: (state) => {
+    getArtists: (state: State): Artist[] => {
       return state.artists;
     },
-    
-    getArtistLoaded: (state) => {
+
+    getArtistLoaded: (state: State): boolean => {
       return state.artistLoaded;
     },
-   
-    getArtistRequest: (state) => {
+
+    getArtistRequest: (state: State): string | null => {
       return state.artistRequest;
     },
   },
-  persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: "storeAPI",
-        storage: localStorage,
-      },
-    ],
-  },
+  // persist: {
+  //   enabled: true,
+  //   strategies: [
+  //     {
+  //       key: "storeAPI",
+  //       storage: localStorage,
+  //     },
+  //   ],
+  // },
 });

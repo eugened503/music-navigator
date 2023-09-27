@@ -77,13 +77,13 @@ export const useStorePagination = defineStore("storePagination", {
       return (pageName) => state.pages[pageName];
     },
   },
-  persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: "pagination",
-        storage: localStorage,
-      },
-    ],
-  },
+  // persist: {
+  //   enabled: true,
+  //   strategies: [
+  //     {
+  //       key: "pagination",
+  //       storage: localStorage,
+  //     },
+  //   ],
+  // },
 });
