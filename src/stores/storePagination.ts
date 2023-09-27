@@ -1,7 +1,25 @@
 import { defineStore } from 'pinia'
 
+type State = {
+  page: {
+    tracks: number
+    albums: number
+    artists: number
+  }
+  perPage: {
+    tracks: number
+    albums: number
+    artists: number
+  }
+  pages: {
+    tracks: number[]
+    albums: number[]
+    artists: number[]
+  }
+}
+
 export const useStorePagination = defineStore('storePagination', {
-  state: () => {
+  state: (): State => {
     return {
       page: {
         tracks: 1,
@@ -21,31 +39,31 @@ export const useStorePagination = defineStore('storePagination', {
     }
   },
   actions: {
-    getNextPage(pageName) {
+    getNextPage(pageName: number): void {
       this.page[pageName] = this.page[pageName] + 1
     },
 
-    getPrevPage(pageName) {
+    getPrevPage(pageName: number): void {
       this.page[pageName] = this.page[pageName] - 1
     },
 
-    getPageNumber(pageNumber, pageName) {
+    getPageNumber(pageNumber: number, pageName: number): void {
       this.page[pageName] = pageNumber
     },
 
-    clearPages(pageName) {
+    clearPages(pageName: number): void {
       this.pages[pageName] = []
     },
 
-    addPages(pageName, index) {
+    addPages(pageName: number, index: number): void {
       this.pages[pageName].push(index)
     },
 
-    resetPage(pageName) {
+    resetPage(pageName: number): void {
       this.page[pageName] = 1
     },
 
-    resetStore() {
+    resetStore(): void {
       this.page = {
         tracks: 1,
         albums: 1,
@@ -65,16 +83,16 @@ export const useStorePagination = defineStore('storePagination', {
   },
 
   getters: {
-    getPage: (state) => {
-      return (pageName) => state.page[pageName]
+    getPage: (state: State) => {
+      return (pageName: number) => state.page[pageName]
     },
 
-    getPerPage: (state) => {
-      return (pageName) => state.perPage[pageName]
+    getPerPage: (state: State) => {
+      return (pageName: number) => state.perPage[pageName]
     },
 
-    getPages: (state) => {
-      return (pageName) => state.pages[pageName]
+    getPages: (state: State) => {
+      return (pageName: number) => state.pages[pageName]
     }
   }
   // persist: {
