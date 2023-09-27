@@ -5,23 +5,69 @@ import {
   onSnapshot,
   setDoc,
   updateDoc,
-  doc,
+  doc
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 
 const musicCollectionRef = collection(db, "music");
 
+type Image = {
+  '#text': string
+  size: string
+}
+
+type Album = {
+  artist: string
+  id: string
+  image: Image
+  name: string
+  play: string
+}
+
+type Artist = {
+  id: string
+  image: Image
+  listeners: Image
+  name: string
+  play: string
+}
+
+type Track = {
+  artist: string
+  id: string
+  image: Image
+  listeners: Image
+  name: string
+  play: string
+}
+
+type Music = {
+  albums: Album[]
+  artists: Artist[]
+  tracks: Track[]
+}
+
+type State = {
+  musicLoaded: boolean,
+  music: Music,
+  uid: string | null,
+}
+
 export const useStoreMusic = defineStore("storeMusic", {
-  state: () => {
+  state: (): State => {
     return {
       musicLoaded: false,
-      music: {},
+      music: {
+        albums: [],
+        artists: [],
+        tracks: []
+      },
       uid: null,
     };
   },
   actions: {
-    async addCollection(userUid) {
+    async addCollection(userUid: string): Promise<void> {
       await setDoc(doc(musicCollectionRef, userUid), {
         date: Date.now(),
         uid: userUid,
@@ -29,31 +75,31 @@ export const useStoreMusic = defineStore("storeMusic", {
       });
     },
 
-    addTracks(track, id) {
+    addTracks(track: Track, id: string): void {
       this.addItems(track, id, "tracks");
     },
 
-    deleteTracks(idTrack, id) {
+    deleteTracks(idTrack: string, id: string): void {
       this.deleteItems(idTrack, id, "tracks");
     },
 
-    addAlbums(album, id) {
+    addAlbums(album: Album, id: string): void {
       this.addItems(album, id, "albums");
     },
 
-    deleteAlbums(idAlbum, id) {
+    deleteAlbums(idAlbum: string, id: string): void {
       this.deleteItems(idAlbum, id, "albums");
     },
 
-    addArtists(artist, id) {
+    addArtists(artist: Artist, id: string): void {
       this.addItems(artist, id, "artists");
     },
 
-    deleteArtists(idArtist, id) {
+    deleteArtists(idArtist: string, id: string): void {
       this.deleteItems(idArtist, id, "artists");
     },
 
-    async addItems(obj, id, name) {
+    async addItems(obj: Track | Album | Artist, id: string, name: string): Promise<void> {
       obj.id = uuidv4();
 
       const music = _.cloneDeep(this.music);
@@ -64,9 +110,9 @@ export const useStoreMusic = defineStore("storeMusic", {
       });
     },
 
-    async deleteItems(idItem, id, name) {
+    async deleteItems(idItem: string, id: string, name: string): Promise<void> {
       const music = _.cloneDeep(this.music);
-      const newItems = music[name].filter((item) => item.id !== idItem);
+      const newItems = music[name].filter((item: { id: string; }) => item.id !== idItem);
       music[name] = newItems;
 
       await updateDoc(doc(musicCollectionRef, id), {
@@ -74,26 +120,26 @@ export const useStoreMusic = defineStore("storeMusic", {
       });
     },
 
-    async getElementId(userUid) {
+    async getElementId(userUid: string): Promise<void> {
       this.musicLoaded = false;
       onSnapshot(doc(musicCollectionRef, userUid), (doc) => {
-        this.music = doc.data().music;
-        this.uid = doc.data().uid;
+        this.music = doc.data()?.music;
+        this.uid = doc.data()?.uid;
         this.musicLoaded = true;
       });
     },
 
-    clearStore() {
+    clearStore(): void {
       this.music = {};
       this.uid = null;
     },
   },
   getters: {
-    getMusic: (state) => {
+    getMusic: (state: State): Music => {
       return state.music;
     },
 
-    getUid: (state) => {
+    getUid: (state: State): string | null => {
       return state.uid;
     },
   },
