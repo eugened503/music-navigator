@@ -1,10 +1,10 @@
 import { computed, reactive } from 'vue'
-import { useStoreUser } from '@/stores/storeUser'
+import { useStoreUser } from '@stores/storeUser'
 import useVuelidate from '@vuelidate/core'
 import { storeToRefs } from 'pinia'
 import { required, minLength, helpers, email } from '@vuelidate/validators'
 
-export default function useFormContent(action) {
+export default function useFormContent(action: string) {
   const { getLoaded, getErrorCode } = storeToRefs(useStoreUser())
 
   const form = reactive({

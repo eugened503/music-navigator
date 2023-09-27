@@ -17,7 +17,7 @@
   </section>
 </template>
 <script setup>
-import useFavouriteContent from '@/composables/useFavouriteContent'
+import useFavouriteContent from '@composables/useFavouriteContent'
 import Track from './Track.vue'
 const { favouriteItems } = useFavouriteContent('tracks')
 </script>

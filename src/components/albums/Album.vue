@@ -21,10 +21,9 @@
     </div>
   </a>
 </template>
-<script setup>
+<script setup lang="ts">
 import { toRef } from 'vue'
-import { useStoreMusic } from '@/stores/storeMusic'
-import useUserContent from '@/composables/useUserContent'
+import useUserContent from '@composables/useUserContent'
 const props = defineProps({
   play: String,
   image: Object,
@@ -32,13 +31,7 @@ const props = defineProps({
   artist: String
 })
 const imgRef = toRef(props, 'image')
-const { addAlbums, deleteAlbums } = useStoreMusic()
-const { lovedItems, handleItems, isImage } = useUserContent(
-  'albums',
-  addAlbums,
-  deleteAlbums,
-  imgRef
-)
+const { lovedItems, handleItems, isImage } = useUserContent('albums', imgRef)
 </script>
 
 <style lang="scss" scoped>

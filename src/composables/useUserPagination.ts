@@ -1,5 +1,5 @@
 import { computed, watch } from 'vue'
-import { useStorePagination } from '@/stores/storePagination'
+import { useStorePagination } from '@stores/storePagination'
 
 export default function useUserPagination(currentItems, pageName) {
   const store = useStorePagination()

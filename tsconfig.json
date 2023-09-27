@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution":"node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@stores/*": ["src/stores/*"],
+      "@composables/*": ["src/composables/*"],
+      "@components/*": ["src/components/*"]
+    }
+  },
+  "include": ["src"]
+  //"references": [{ "path": "./tsconfig.node.json" }]
+}

@@ -73,7 +73,7 @@ const search = (currentRequest) => {
 
   &__reset {
     right: 40px;
-    background-image: url(../assets/images/edit_clear.svg);
+    background-image: url(@/assets/images/edit_clear.svg);
     background-repeat: no-repeat;
     background-size: 33%;
     background-position: center;
@@ -81,7 +81,7 @@ const search = (currentRequest) => {
 
   &__submit {
     right: 0;
-    background-image: url(../assets/images/search.svg);
+    background-image: url(@/assets/images/search.svg);
     background-repeat: no-repeat;
     background-size: 50%;
     background-position: center;
