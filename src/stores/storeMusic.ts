@@ -106,7 +106,9 @@ export const useStoreMusic = defineStore('storeMusic', {
 
     async deleteItems(idItem: string, id: string, name: string): Promise<void> {
       const music: Music = _.cloneDeep(this.music)
-      const newItems = music[name as keyof Music].filter((item: { id: string }) => item.id !== idItem)
+      const newItems = music[name as keyof Music].filter(
+        (item: { id: string }) => item.id !== idItem
+      )
       music[name as keyof Music] = newItems
 
       await updateDoc(doc(musicCollectionRef, id), {
@@ -124,7 +126,7 @@ export const useStoreMusic = defineStore('storeMusic', {
     },
 
     clearStore(): void {
-      this.music =  {
+      this.music = {
         albums: [],
         artists: [],
         tracks: []
