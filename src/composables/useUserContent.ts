@@ -33,7 +33,7 @@ export default function useUserContent(currentName: string, imgRef: any): Conten
     }
   }
 
-  console.log('imgRef', imgRef.value)
+  //console.log('imgRef', imgRef.value)
 
   const music = computed(() => getMusic.value)
   const uid = computed(() => getUid.value)

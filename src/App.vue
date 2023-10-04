@@ -12,7 +12,7 @@
   </Modal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onBeforeMount, watch, ref } from 'vue'
 import { useStoreMusic } from '@/stores/storeMusic'
 import { useStoreUser } from '@/stores/storeUser'
@@ -28,7 +28,7 @@ const { getLoaded, getUid, getErrorCode } = storeToRefs(useStoreUser())
 
 const showModal = ref(false)
 
-const closeModal = () => {
+const closeModal = (): void => {
   showModal.value = false
   clearErrorCode()
 }

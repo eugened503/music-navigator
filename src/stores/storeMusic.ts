@@ -12,7 +12,7 @@ type Image = {
 }
 
 type Album = {
-  artist: string
+  artist?: string
   id: string
   image: Image
   name: string
@@ -22,16 +22,16 @@ type Album = {
 type Artist = {
   id: string
   image: Image
-  listeners: Image
+  listeners?: Image
   name: string
   play: string
 }
 
 type Track = {
-  artist: string
+  artist?: string
   id: string
   image: Image
-  listeners: Image
+  listeners?: Image
   name: string
   play: string
 }
@@ -96,8 +96,8 @@ export const useStoreMusic = defineStore('storeMusic', {
     async addItems(obj: Track | Album | Artist, id: string, name: string): Promise<void> {
       obj.id = uuidv4()
 
-      const music = _.cloneDeep(this.music)
-      music[name].push(obj)
+      const music: Music = _.cloneDeep(this.music)
+      music[name as keyof Music].push(obj)
 
       await updateDoc(doc(musicCollectionRef, id), {
         music
@@ -105,9 +105,9 @@ export const useStoreMusic = defineStore('storeMusic', {
     },
 
     async deleteItems(idItem: string, id: string, name: string): Promise<void> {
-      const music = _.cloneDeep(this.music)
-      const newItems = music[name].filter((item: { id: string }) => item.id !== idItem)
-      music[name] = newItems
+      const music: Music = _.cloneDeep(this.music)
+      const newItems = music[name as keyof Music].filter((item: { id: string }) => item.id !== idItem)
+      music[name as keyof Music] = newItems
 
       await updateDoc(doc(musicCollectionRef, id), {
         music
@@ -124,7 +124,11 @@ export const useStoreMusic = defineStore('storeMusic', {
     },
 
     clearStore(): void {
-      this.music = {}
+      this.music =  {
+        albums: [],
+        artists: [],
+        tracks: []
+      }
       this.uid = null
     }
   },

@@ -28,7 +28,7 @@
   <router-view />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useStoreUser } from '@stores/storeUser'
 import { computed } from 'vue'
