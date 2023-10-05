@@ -26,7 +26,7 @@ export default function useUserPagination(currentItems, pageName) {
     }
   }
 
-  const getPageNumber = (pageNumber) => {
+  const getPageNumber = (pageNumber: number) => {
     store.getPageNumber(pageNumber, pageName)
   }
 

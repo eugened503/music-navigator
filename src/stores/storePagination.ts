@@ -2,19 +2,13 @@ import { defineStore } from 'pinia'
 
 type State = {
   page: {
-    tracks: number
-    albums: number
-    artists: number
+    [key: string]: number
   }
   perPage: {
-    tracks: number
-    albums: number
-    artists: number
+    [key: string]: number
   }
   pages: {
-    tracks: number[]
-    albums: number[]
-    artists: number[]
+    [key: string]: number[]
   }
 }
 
@@ -39,27 +33,27 @@ export const useStorePagination = defineStore('storePagination', {
     }
   },
   actions: {
-    getNextPage(pageName: number): void {
+    getNextPage(pageName: string): void {
       this.page[pageName] = this.page[pageName] + 1
     },
 
-    getPrevPage(pageName: number): void {
+    getPrevPage(pageName: string): void {
       this.page[pageName] = this.page[pageName] - 1
     },
 
-    getPageNumber(pageNumber: number, pageName: number): void {
+    getPageNumber(pageNumber: number, pageName: string): void {
       this.page[pageName] = pageNumber
     },
 
-    clearPages(pageName: number): void {
+    clearPages(pageName: string): void {
       this.pages[pageName] = []
     },
 
-    addPages(pageName: number, index: number): void {
+    addPages(pageName: string, index: number): void {
       this.pages[pageName].push(index)
     },
 
-    resetPage(pageName: number): void {
+    resetPage(pageName: string): void {
       this.page[pageName] = 1
     },
 
@@ -84,15 +78,15 @@ export const useStorePagination = defineStore('storePagination', {
 
   getters: {
     getPage: (state: State) => {
-      return (pageName: number) => state.page[pageName]
+      return (pageName: string | number) => state.page[pageName]
     },
 
     getPerPage: (state: State) => {
-      return (pageName: number) => state.perPage[pageName]
+      return (pageName: string | number) => state.perPage[pageName]
     },
 
     getPages: (state: State) => {
-      return (pageName: number) => state.pages[pageName]
+      return (pageName: string | number) => state.pages[pageName]
     }
   }
   // persist: {

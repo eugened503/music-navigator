@@ -51,7 +51,7 @@ type ErrorData = {
   response: {
     data: {
       message: string
-}
+    }
   }
 }
 
@@ -82,7 +82,7 @@ export const useStoreAPI = defineStore('storeAPI', {
         this.trackRequest = track
         this.setCurrentRequest(track)
       } catch (error: unknown) {
-        const knownError = error as ErrorData;
+        const knownError = error as ErrorData
         this.error = knownError.response?.data.message
         console.log(error)
       }
@@ -101,9 +101,9 @@ export const useStoreAPI = defineStore('storeAPI', {
         this.albumRequest = album
         this.setCurrentRequest(album)
       } catch (error: unknown) {
-          const knownError = error as ErrorData;
-          this.error = knownError.response?.data.message
-          console.log(error)
+        const knownError = error as ErrorData
+        this.error = knownError.response?.data.message
+        console.log(error)
       }
 
       this.albumLoaded = true
@@ -120,7 +120,7 @@ export const useStoreAPI = defineStore('storeAPI', {
         this.artistRequest = artist
         this.setCurrentRequest(artist)
       } catch (error: unknown) {
-        const knownError = error as ErrorData;
+        const knownError = error as ErrorData
         this.error = knownError.response?.data.message
         console.log(error)
       }
