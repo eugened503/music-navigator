@@ -4,43 +4,9 @@ import { collection, onSnapshot, setDoc, updateDoc, doc } from 'firebase/firesto
 import { db } from '../firebase'
 import { v4 as uuidv4 } from 'uuid'
 
+import { Album, Artist, Track, Music } from '@/types/music'
+
 const musicCollectionRef = collection(db, 'music')
-
-type Image = {
-  '#text': string
-  size: string
-}
-
-type Album = {
-  artist?: string
-  id: string
-  image: Image
-  name: string
-  play: string
-}
-
-type Artist = {
-  id: string
-  image: Image
-  listeners?: Image
-  name: string
-  play: string
-}
-
-type Track = {
-  artist?: string
-  id: string
-  image: Image
-  listeners?: Image
-  name: string
-  play: string
-}
-
-type Music = {
-  albums: Album[]
-  artists: Artist[]
-  tracks: Track[]
-}
 
 type State = {
   musicLoaded: boolean
@@ -138,7 +104,6 @@ export const useStoreMusic = defineStore('storeMusic', {
     getMusic: (state: State): Music => {
       return state.music
     },
-
     getUid: (state: State): string | null => {
       return state.uid
     }

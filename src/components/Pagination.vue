@@ -24,8 +24,8 @@
     </button>
   </div>
 </template>
-<script setup>
-const props = defineProps({
+<script setup lang="ts">
+defineProps({
   pages: Array,
   page: Number
 })

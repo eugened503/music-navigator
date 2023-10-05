@@ -25,7 +25,6 @@
       </div>
     </div>
   </header>
-  <router-view />
 </template>
 
 <script setup lang="ts">

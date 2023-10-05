@@ -12,7 +12,7 @@
     <button :disabled="!currentRequest" class="form__submit" type="submit"></button>
   </form>
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { useStoreAPI } from '@/stores/storeAPI'
 import { storeToRefs } from 'pinia'

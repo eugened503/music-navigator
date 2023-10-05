@@ -14,7 +14,7 @@
     </TransitionGroup>
   </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import Album from './Album.vue'
 import useFavouriteContent from '@composables/useFavouriteContent'
 const { favouriteItems } = useFavouriteContent('albums')

@@ -1,5 +1,6 @@
 <template>
   <Header></Header>
+  <router-view />
   <Footer></Footer>
   <Loader v-if="getLoaded"></Loader>
   <Modal :showModal="showModal" @close="closeModal">
