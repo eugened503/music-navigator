@@ -39,7 +39,7 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import useFormContent from '@composables/useFormContent'
 
 const props = defineProps({

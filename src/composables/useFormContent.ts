@@ -4,7 +4,7 @@ import useVuelidate from '@vuelidate/core'
 import { storeToRefs } from 'pinia'
 import { required, minLength, helpers, email } from '@vuelidate/validators'
 
-export default function useFormContent(action: string) {
+export default function useFormContent(action: Function | undefined) {
   const { getLoaded, getErrorCode } = storeToRefs(useStoreUser())
 
   const form = reactive({
@@ -30,7 +30,9 @@ export default function useFormContent(action: string) {
   const submitForm = async () => {
     const isFormCorrect = await v$.value.$validate()
     if (!isFormCorrect) return
-    action(form)
+    if (action) {
+      action(form)
+    }
   }
 
   return { form, getLoaded, getErrorCode, submitForm, v$ }

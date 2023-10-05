@@ -78,15 +78,15 @@ export const useStorePagination = defineStore('storePagination', {
 
   getters: {
     getPage: (state: State) => {
-      return (pageName: string | number) => state.page[pageName]
+      return (pageName: string) => state.page[pageName]
     },
 
     getPerPage: (state: State) => {
-      return (pageName: string | number) => state.perPage[pageName]
+      return (pageName: string) => state.perPage[pageName]
     },
 
     getPages: (state: State) => {
-      return (pageName: string | number) => state.pages[pageName]
+      return (pageName: string) => state.pages[pageName]
     }
   }
   // persist: {
