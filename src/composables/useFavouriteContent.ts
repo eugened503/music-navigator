@@ -1,10 +1,15 @@
-import { computed } from 'vue'
+import { computed, ComputedRef } from 'vue'
 import { useStoreMusic } from '@stores/storeMusic'
 import { storeToRefs } from 'pinia'
+import { Album, Artist, Track, Music } from '@/types/music'
 
-export default function useFavouriteContent(name: string) {
+type FavouriteItems = ComputedRef<Album[] | Artist[] | Track[]>
+
+export default function useFavouriteContent(name: string | undefined): {
+  favouriteItems: FavouriteItems
+} {
   const { getMusic } = storeToRefs(useStoreMusic())
-  const favouriteItems = computed(() => getMusic.value[name])
+  const favouriteItems: FavouriteItems = computed(() => getMusic.value[name as keyof Music])
 
   return { favouriteItems }
 }

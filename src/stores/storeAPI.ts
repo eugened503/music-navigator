@@ -47,6 +47,14 @@ type State = {
   artistRequest: string | null
 }
 
+type ErrorData = {
+  response: {
+    data: {
+      message: string
+}
+  }
+}
+
 export const useStoreAPI = defineStore('storeAPI', {
   state: (): State => {
     return {
@@ -70,12 +78,12 @@ export const useStoreAPI = defineStore('storeAPI', {
       this.loaded = true
       try {
         const res = await this.getRes('track', track)
-
         this.tracks = res.data?.results.trackmatches.track
         this.trackRequest = track
         this.setCurrentRequest(track)
-      } catch (error) {
-        this.error = error.response?.data.message
+      } catch (error: unknown) {
+        const knownError = error as ErrorData;
+        this.error = knownError.response?.data.message
         console.log(error)
       }
 
@@ -92,9 +100,10 @@ export const useStoreAPI = defineStore('storeAPI', {
         this.albums = res.data?.results.albummatches.album
         this.albumRequest = album
         this.setCurrentRequest(album)
-      } catch (error) {
-        this.error = error.response?.data.message
-        console.log(error)
+      } catch (error: unknown) {
+          const knownError = error as ErrorData;
+          this.error = knownError.response?.data.message
+          console.log(error)
       }
 
       this.albumLoaded = true
@@ -110,8 +119,9 @@ export const useStoreAPI = defineStore('storeAPI', {
         this.artists = res.data?.results.artistmatches.artist
         this.artistRequest = artist
         this.setCurrentRequest(artist)
-      } catch (error) {
-        this.error = error.response?.data.message
+      } catch (error: unknown) {
+        const knownError = error as ErrorData;
+        this.error = knownError.response?.data.message
         console.log(error)
       }
 
@@ -137,7 +147,7 @@ export const useStoreAPI = defineStore('storeAPI', {
       this.artistRequest = null
     },
 
-    getRes(method: string, searchName: string): Promise<void> {
+    getRes(method: string, searchName: string) {
       return axios.get(
         baseUrl +
           '/?method=' +

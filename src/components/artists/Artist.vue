@@ -19,7 +19,7 @@
     </div>
   </a>
 </template>
-<script setup>
+<script setup lang="ts">
 import { toRef } from 'vue'
 import useUserContent from '@composables/useUserContent'
 const props = defineProps({

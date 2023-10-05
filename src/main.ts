@@ -16,4 +16,4 @@ app.use(router)
 app.directive('lazyLoad', vLazyLoad)
 app.mount('#app')
 
-app.config.performance  = true
+app.config.performance = true

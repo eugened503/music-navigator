@@ -14,7 +14,7 @@
     </TransitionGroup>
   </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import useFavouriteContent from '@composables/useFavouriteContent'
 import Artist from './Artist.vue'
 

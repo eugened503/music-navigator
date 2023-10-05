@@ -12,6 +12,7 @@ export type Album = {
 }
 
 export type Artist = {
+  artist?: string
   id: string
   image: Image
   listeners?: Image

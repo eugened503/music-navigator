@@ -55,9 +55,10 @@ export default function useUserContent(
     }
   }
 
-  //const uid: ComputedRef<string | null> = computed(() => getUid.value)
   const uid: string | null = getUid.value
-  const items: Album[] | Artist[] | Track[] = getMusic.value[currentName as keyof Music]
+  const items: ComputedRef<Album[] | Artist[] | Track[]> = computed(
+    () => getMusic.value[currentName as keyof Music]
+  )
   const isImage: ComputedRef<string | undefined> = computed(() =>
     getImage(imgRef.value as unknown as Image)
   )
@@ -95,21 +96,20 @@ export default function useUserContent(
   }
 
   const lovedItems = (nameItem: string | undefined, artistItem: string | undefined): boolean => {
-    const name = items.some((item: { name: string }) => item.name === nameItem)
+    const name = items.value.some((item: { name: string }) => item.name === nameItem)
 
     // для альбомов
     if (artistItem) {
-      // const artist = items.some((item) => item.artist === artistItem)
-      // return name && artist
+      const artist = items.value.some((item) => item.artist === artistItem)
+      return name && artist
     }
 
-    console.log(name)
     //для треков и исполнителей
     return name
   }
 
   const handleIdItem = (nameItem: string | undefined): string | undefined => {
-    const item: Album | Artist | Track | undefined = items.find(
+    const item: Album | Artist | Track | undefined = items.value.find(
       (item: { name: string }) => item.name === nameItem
     )
     return item?.id
