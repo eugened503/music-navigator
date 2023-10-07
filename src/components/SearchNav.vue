@@ -14,7 +14,7 @@
   </nav>
   <router-view />
 </template>
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import _ from 'lodash'
