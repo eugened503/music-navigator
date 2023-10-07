@@ -9,7 +9,7 @@
   ></Form>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useStoreUser } from '@/stores/storeUser'
 import Form from '@/components/Form.vue'
 const { login } = useStoreUser()
