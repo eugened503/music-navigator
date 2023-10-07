@@ -15,7 +15,7 @@
         })
       "
       class="track__cell loved"
-      :class="{ active: lovedItems(name) }"
+      :class="{ active: lovedItems(name,  undefined) }"
     ></button>
 
     <div class="track__cell name">
@@ -30,7 +30,7 @@
     </div>
   </a>
 </template>
-<script setup>
+<script setup lang="ts">
 import { toRef } from 'vue'
 import useUserContent from '@composables/useUserContent'
 

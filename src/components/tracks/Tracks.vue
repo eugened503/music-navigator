@@ -26,7 +26,7 @@
   />
   <Loader v-if="getLoaded"></Loader>
 </template>
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
 import Track from './Track.vue'
 import SearchForm from '@components/SearchForm.vue'
