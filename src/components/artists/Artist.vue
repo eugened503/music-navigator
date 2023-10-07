@@ -11,7 +11,7 @@
         })
       "
       class="artist__image loved"
-      :class="{ active: lovedItems(name) }"
+      :class="{ active: lovedItems(name, undefined) }"
     ></button>
     <div class="artist__info">
       <p class="artist__name ellipsis">{{ name }}</p>
