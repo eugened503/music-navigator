@@ -102,7 +102,7 @@ export const useStoreAPI = defineStore('storeAPI', {
       this.loaded = false
     },
 
-    setCurrentRequest(currentRequest: string): void {
+    setCurrentRequest(currentRequest: string | null): void {
       this.currentRequest = currentRequest
     },
 

@@ -29,19 +29,21 @@ const currentRequest = computed({
   set: (val) => setCurrentRequest(val)
 })
 
-const search = (currentRequest) => {
-  switch (props.requestName) {
-    case 'track':
-      trackSearch(currentRequest)
-      break
-    case 'album':
-      albumSearch(currentRequest)
-      break
-    case 'artist':
-      artistSearch(currentRequest)
-      break
-    default:
-      console.log('Неизвестное значение')
+const search = (currentRequest: string | null) => {
+  if (typeof currentRequest === 'string') {
+    switch (props.requestName) {
+      case 'track':
+        trackSearch(currentRequest)
+        break
+      case 'album':
+        albumSearch(currentRequest)
+        break
+      case 'artist':
+        artistSearch(currentRequest)
+        break
+      default:
+        console.log('Неизвестное значение')
+    }
   }
 }
 </script>
