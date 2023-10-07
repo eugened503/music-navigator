@@ -5,7 +5,7 @@
     </div>
   </main>
 </template>
-<script setup>
+<script setup lang="ts">
 import SearchNav from './SearchNav.vue'
 </script>
 
