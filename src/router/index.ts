@@ -82,7 +82,7 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const { getAccessToken } = useStoreUser()
   if (to.path === '/login' && getAccessToken) {
     next('/')
