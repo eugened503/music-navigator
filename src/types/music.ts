@@ -3,31 +3,20 @@ export type Image = {
   size: string
 }
 
-export type Album = {
+type Item = {
   artist?: string
   id: string
   image: Image
+  listeners?: string
   name: string
   play: string
 }
 
-export type Artist = {
-  artist?: string
-  id: string
-  image: Image
-  listeners?: Image
-  name: string
-  play: string
-}
+export type Album = Item
 
-export type Track = {
-  artist?: string
-  id: string
-  image: Image
-  listeners?: Image
-  name: string
-  play: string
-}
+export type Artist = Item
+
+export type Track = Item
 
 export type Music = {
   albums: Album[]
