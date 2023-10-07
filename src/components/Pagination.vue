@@ -25,21 +25,25 @@
   </div>
 </template>
 <script setup lang="ts">
-defineProps({
-  pages: Array,
-  page: Number
-})
+
+interface Props {
+  pages: number[]
+  page: number
+}
+
+defineProps<Props>()
 
 const emit = defineEmits(['paginationClick', 'nextPage', 'prevPage'])
-const handlePageNumber = (pageNumber) => {
+
+const handlePageNumber = (pageNumber: number):void => {
   emit('paginationClick', pageNumber)
 }
 
-const handleNextPage = () => {
+const handleNextPage = ():void => {
   emit('nextPage')
 }
 
-const handlePrevPage = () => {
+const handlePrevPage = ():void => {
   emit('prevPage')
 }
 </script>
