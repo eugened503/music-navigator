@@ -15,7 +15,7 @@
         })
       "
       class="track__cell loved"
-      :class="{ active: lovedItems(name,  undefined) }"
+      :class="{ active: lovedItems(name, undefined) }"
     ></button>
 
     <div class="track__cell name">

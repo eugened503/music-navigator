@@ -6,7 +6,7 @@ import { Album, Artist, Track } from '@/types/APImusic'
 type CurrentItems = Album[] | Artist[] | Track[]
 
 export default function useUserPagination(
-  currentItems:  ComputedRef<CurrentItems>,
+  currentItems: ComputedRef<CurrentItems>,
   pageName: string
 ) {
   const store = useStorePagination()
