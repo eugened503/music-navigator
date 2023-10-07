@@ -3,34 +3,7 @@ const baseUrl = 'https://ws.audioscrobbler.com/2.0'
 const apiKey = 'bb0926934a9df6d160484c38b4293fca'
 import axios from 'axios'
 
-type Track = {
-  artist: string
-  image: string[]
-  listeners: string
-  mbid: string
-  name: string
-  streamable: string
-  url: string
-}
-
-type Album = {
-  artist: string
-  image: string[]
-  listeners: string
-  mbid: string
-  name: string
-  streamable: string
-  url: string
-}
-
-type Artist = {
-  image: string[]
-  listeners: string
-  mbid: string
-  name: string
-  streamable: string
-  url: string
-}
+import { Album, Artist, Track } from '@/types/APImusic'
 
 type State = {
   tracks: Track[]
