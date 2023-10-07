@@ -1,5 +1,5 @@
 export default {
-  mounted(el) {
+  mounted(el: any) {
     const loadImage = () => {
       el.classList.add('active')
     }
@@ -9,7 +9,7 @@ export default {
         root: null,
         threshold: 1
       }
-      const callback = (entries, observer) => {
+      const callback = (entries: any[], observer: { unobserve: (arg0: any) => void }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             loadImage()
