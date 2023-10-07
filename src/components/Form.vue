@@ -8,7 +8,7 @@
         v-model="form.email"
         name="email"
         autocomplete="on"
-        :disabled="getLoaded || getErrorCode"
+        :disabled="getLoaded || getBooleanErrorCode"
       />
       <div class="form__errors">
         <p v-for="(error, index) of v$.email.$errors" :key="index" class="form__error">
@@ -21,14 +21,14 @@
         v-model="form.password"
         name="password"
         autocomplete="on"
-        :disabled="getLoaded || getErrorCode"
+        :disabled="getLoaded || getBooleanErrorCode"
       />
       <div class="form__errors height">
         <p v-for="(error, index) of v$.password.$errors" :key="index" class="form__error">
           {{ error.$message }}
         </p>
       </div>
-      <button class="button" :disabled="getLoaded || getErrorCode" type="submit">
+      <button class="button" :disabled="getLoaded || getBooleanErrorCode" type="submit">
         {{ nameButton }}
       </button>
       <p class="form__footer">
@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import useFormContent from '@composables/useFormContent'
+import { computed, ComputedRef } from 'vue'
 
 const props = defineProps({
   title: String,
@@ -52,6 +53,18 @@ const props = defineProps({
 })
 
 const { form, getLoaded, getErrorCode, submitForm, v$ } = useFormContent(props.action)
+
+const getBooleanErrorCode: ComputedRef<boolean> = computed(() => {
+  if (typeof getErrorCode.value !== 'string') {
+    return false
+  } else {
+    if (getErrorCode.value.length) {
+      return true
+    } else {
+      return false
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
