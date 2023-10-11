@@ -1,12 +1,9 @@
 import { computed, watch, ComputedRef } from 'vue'
 import { useStorePagination } from '@stores/storePagination'
-
-import { Album, Artist, Track } from '@/types/APImusic'
-
-type CurrentItems = Album[] | Artist[] | Track[]
+import { LastFmItem } from '@/types/lastFmTypes'
 
 export default function useUserPagination(
-  currentItems: ComputedRef<CurrentItems>,
+  currentItems: ComputedRef<LastFmItem[]>,
   pageName: string
 ) {
   const store = useStorePagination()
@@ -14,7 +11,7 @@ export default function useUserPagination(
   const perPage = computed(() => store.getPerPage(pageName))
   const pages = computed(() => store.getPages(pageName))
 
-  const paginate = (items: CurrentItems) => {
+  const paginate = (items: LastFmItem[]) => {
     const pageValue = page.value
     const perPageValue = perPage.value
     const from = pageValue * perPageValue - perPageValue

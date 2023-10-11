@@ -3,7 +3,7 @@ export type Image = {
   size: string
 }
 
-type Item = {
+export type FirestoreItem = {
   artist?: string
   id: string
   image: Image
@@ -12,14 +12,8 @@ type Item = {
   play: string
 }
 
-export type Album = Item
-
-export type Artist = Item
-
-export type Track = Item
-
 export type Music = {
-  albums: Album[]
-  artists: Artist[]
-  tracks: Track[]
+  albums: FirestoreItem[]
+  artists: FirestoreItem[]
+  tracks: FirestoreItem[]
 }

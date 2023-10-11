@@ -2,13 +2,12 @@ import { defineStore } from 'pinia'
 const baseUrl = 'https://ws.audioscrobbler.com/2.0'
 const apiKey = 'bb0926934a9df6d160484c38b4293fca'
 import axios from 'axios'
-
-import { Album, Artist, Track } from '@/types/APImusic'
+import { LastFmItem } from '@/types/lastFmTypes'
 
 type State = {
-  tracks: Track[]
-  albums: Album[]
-  artists: Artist[]
+  tracks: LastFmItem[]
+  albums: LastFmItem[]
+  artists: LastFmItem[]
   error: string | null
   loaded: boolean
   trackLoaded: boolean
@@ -151,7 +150,7 @@ export const useStoreAPI = defineStore('storeAPI', {
     },
 
     //Tracks
-    getTracks: (state: State): Track[] => {
+    getTracks: (state: State): LastFmItem[] => {
       return state.tracks
     },
 
@@ -164,7 +163,7 @@ export const useStoreAPI = defineStore('storeAPI', {
     },
 
     //Albums
-    getAlbums: (state: State): Album[] => {
+    getAlbums: (state: State): LastFmItem[] => {
       return state.albums
     },
 
@@ -177,7 +176,7 @@ export const useStoreAPI = defineStore('storeAPI', {
     },
 
     //Artists
-    getArtists: (state: State): Artist[] => {
+    getArtists: (state: State): LastFmItem[] => {
       return state.artists
     },
 

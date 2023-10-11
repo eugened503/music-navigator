@@ -3,8 +3,7 @@ import { defineStore } from 'pinia'
 import { collection, onSnapshot, setDoc, updateDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { v4 as uuidv4 } from 'uuid'
-
-import { Album, Artist, Track, Music } from '@/types/music'
+import { FirestoreItem, Music } from '@/types/firestoreTypes'
 
 const musicCollectionRef = collection(db, 'music')
 
@@ -35,7 +34,7 @@ export const useStoreMusic = defineStore('storeMusic', {
       })
     },
 
-    addTracks(track: Track, id: string): void {
+    addTracks(track: FirestoreItem, id: string): void {
       this.addItems(track, id, 'tracks')
     },
 
@@ -43,7 +42,7 @@ export const useStoreMusic = defineStore('storeMusic', {
       this.deleteItems(idTrack, id, 'tracks')
     },
 
-    addAlbums(album: Album, id: string): void {
+    addAlbums(album: FirestoreItem, id: string): void {
       this.addItems(album, id, 'albums')
     },
 
@@ -51,7 +50,7 @@ export const useStoreMusic = defineStore('storeMusic', {
       this.deleteItems(idAlbum, id, 'albums')
     },
 
-    addArtists(artist: Artist, id: string): void {
+    addArtists(artist: FirestoreItem, id: string): void {
       this.addItems(artist, id, 'artists')
     },
 
@@ -59,7 +58,7 @@ export const useStoreMusic = defineStore('storeMusic', {
       this.deleteItems(idArtist, id, 'artists')
     },
 
-    async addItems(obj: Track | Album | Artist, id: string, name: string): Promise<void> {
+    async addItems(obj: FirestoreItem, id: string, name: string): Promise<void> {
       obj.id = uuidv4()
 
       const music: Music = _.cloneDeep(this.music)

@@ -1,20 +1,20 @@
 import { ComputedRef, computed, Ref } from 'vue'
 import { useStoreMusic } from '@stores/storeMusic'
 import { storeToRefs } from 'pinia'
-import { Image, Album, Artist, Track, Music } from '@/types/music'
+import { FirestoreItem, Image, Music } from '@/types/firestoreTypes'
 
 type Map = {
   albums: {
     deleteItems: (idAlbum: string, id: string) => void
-    addItems: (album: Album, id: string) => void
+    addItems: (album: FirestoreItem, id: string) => void
   }
   artists: {
     deleteItems: (idArtist: string, id: string) => void
-    addItems: (artist: Artist, id: string) => void
+    addItems: (artist: FirestoreItem, id: string) => void
   }
   tracks: {
     deleteItems: (idTrack: string, id: string) => void
-    addItems: (track: Track, id: string) => void
+    addItems: (track: FirestoreItem, id: string) => void
   }
 }
 
@@ -56,7 +56,7 @@ export default function useUserContent(
   }
 
   const uid: string | null = getUid.value
-  const items: ComputedRef<Album[] | Artist[] | Track[]> = computed(
+  const items: ComputedRef<FirestoreItem[]> = computed(
     () => getMusic.value[currentName as keyof Music]
   )
   const isImage: ComputedRef<string | undefined> = computed(() =>
@@ -83,13 +83,13 @@ export default function useUserContent(
       } else {
         switch (currentName) {
           case 'artists':
-            map[currentName as keyof Music].addItems(obj as unknown as Artist, uid)
+            map[currentName as keyof Music].addItems(obj as unknown as FirestoreItem, uid)
             break
           case 'albums':
-            map[currentName as keyof Music].addItems(obj as unknown as Album, uid)
+            map[currentName as keyof Music].addItems(obj as unknown as FirestoreItem, uid)
             break
           default:
-            map[currentName as keyof Music].addItems(obj as unknown as Track, uid)
+            map[currentName as keyof Music].addItems(obj as unknown as FirestoreItem, uid)
         }
       }
     }
@@ -109,7 +109,7 @@ export default function useUserContent(
   }
 
   const handleIdItem = (nameItem: string | undefined): string | undefined => {
-    const item: Album | Artist | Track | undefined = items.value.find(
+    const item: FirestoreItem | undefined = items.value.find(
       (item: { name: string }) => item.name === nameItem
     )
     return item?.id
